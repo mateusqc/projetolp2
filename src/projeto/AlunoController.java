@@ -1,106 +1,91 @@
 package projeto;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe que representa o Controller de Alunos do QUEM ME AJUDA.
+ * @author Lucas Cordeiro Brasil
+ * @author Maeteus Queiroz Cunha
+ *
+ */
 public class AlunoController {
 
 	private Map<String, Aluno> alunos;
-	
-	private Map<String, ArrayList<String>> tutores;
+	private Map<String, List<String>> tutores;
 	
 	public AlunoController() {
-		
-		alunos = new HashMap<String, Aluno>();
-		tutores = new HashMap<String, ArrayList<String>>();
-		
+		this.alunos = new HashMap<String, Aluno>();
+		this.tutores = new HashMap<String, List<String>>();
 	}
 		
 	
-	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		
+	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
 		this.verificaDados(nome, email);
-		
+		//verificar telefone?
 		if(alunos.containsKey(matricula)) {
-			
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Aluno de mesma matricula ja cadastrado");
 		}
-		
 		alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email));
-		
 	}
 	
-	public void verificaDados(String nome, String email) {
-		
+	/**
+	 * Método que verifica a validade das Strings de nome e e-mail.
+	 * @param nome
+	 * @param email
+	 */
+	private void verificaDados(String nome, String email) {
 		if(nome == null) {
-			
 			throw new NullPointerException("Erro no cadastro de aluno: Nome nao pode ser vazio ou nulo");
-			
 		}
-		
 		if(nome.trim().equals("")) {
-			
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Nome nao pode ser vazio ou nulo");
-			
 		}
 		if(!email.contains("@")) {
-			
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 		}
-				
+		
 		String[] emailParcionado = email.split("@");
 		
-		for(int i = 0; i < emailParcionado.length; i++) {
-			
-			if(emailParcionado[i] == null) {
-				
-				throw new IllegalArgumentException();
-				
-			}
-			
+		if (emailParcionado.length != 2) {
+			throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 		}
 		
+		for(int i = 0; i < emailParcionado.length; i++) {
+			if(emailParcionado[i] == "" || emailParcionado[i] == null) {
+				throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
+			}
+		}
 	}
 	
 	public String recuperaAluno(String matricula) {
-		
 		if(!alunos.containsKey(matricula)) {
-			
 			throw new IllegalArgumentException("Erro na busca por aluno: Aluno nao encontrado");
-			
 		}
-		
 		return alunos.get(matricula).toString();
 		
 	}
 	
 	public String listarAlunos() {
+		List<Aluno> alunosOrdenadosNome = new ArrayList<Aluno>();
 		
-		ArrayList<Aluno> alunosOrdenadosNome = new ArrayList<Aluno>();
 		for(Aluno aluno : this.alunos.values()) {
-			
-			alunosOrdenadosNome.add(aluno);
-			
+			alunosOrdenadosNome.add(aluno);	
 		}
 		
 		Collections.sort(alunosOrdenadosNome, new AlunoComparator());
+		//não seria melhor comparable? não existem outras possíveis ordenações
 		
 		String alunosListados = "";
-		
 		for(int i=0; i < alunosOrdenadosNome.size(); i++) {
-			
 			alunosListados += alunosOrdenadosNome.get(i).toString();
 			if(i != alunosOrdenadosNome.size() - 1) {
-			
 				alunosListados += ", ";
-				
 			}
-			
 		}
-		
 		return alunosListados;
 		
 	}
@@ -108,24 +93,16 @@ public class AlunoController {
 	public String getInfoAluno(String matricula, String atributo) {
 		
 		if(!alunos.containsKey(matricula)) {
-			
 			throw new IllegalArgumentException("Erro na obtencao de informacao de aluno: Aluno nao encontrado");
 		}
 		
 		if(atributo.equalsIgnoreCase("nome")) {
-			
 			return alunos.get(matricula).getNome();
-			
 		}else if(atributo.equalsIgnoreCase("telefone")) {
-			
 			return alunos.get(matricula).getTelefone();
-			
 		}else if(atributo.equalsIgnoreCase("email")) {
-			
 			return alunos.get(matricula).getEmail();
-			
 		}else {
-			
 			throw new IllegalArgumentException();
 		}
 		
