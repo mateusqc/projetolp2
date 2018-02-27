@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Classe que representa um Aluno no sistema QUEM ME AJUDA.
  * 
+ * Projeto de LP2 - Quem me ajuda
+ * 
  * @author Lucas Cordeiro Brasil
  * @author Mateus Queiroz Cunha
  * @author Joeberth Augusto Cordeiro de Souza

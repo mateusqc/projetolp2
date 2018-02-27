@@ -9,23 +9,36 @@ import java.util.Map;
 /**
  * Classe que representa o Controller de Alunos do QUEM ME AJUDA.
  * 
+ * Projeto de LP2 - Quem me ajuda
+ * 
  * @author Lucas Cordeiro Brasil
  * @author Mateus Queiroz Cunha
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
 public class AlunoController {
-
+	/**
+	 * Mapa de Alunos, onde a chave é a matrícula do Aluno.
+	 */
 	private Map<String, Aluno> alunos;
 	
+	/**
+	 * Construtor do controller, onde é inicializado o Mapa de Alunos.
+	 */
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
 	}
 		
-	
+	/**
+	 * Método que cadastra um Aluno no sistema. Caso o Aluno já exista no sistema, uma exceção do tipo {@link IllegalArgumentException} será lançada. 
+	 * @param nome nome do Aluno
+	 * @param matricula matrícula do Aluno
+	 * @param codigoCurso código do curso do Aluno
+	 * @param telefone telefone do Aluno (opcional)
+	 * @param email e-mail do Aluno
+	 */
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.verificaDados(nome, email);
-		//verificar telefone?
 		if(alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Aluno de mesma matricula ja cadastrado");
 		}
@@ -33,9 +46,10 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Método que verifica a validade das Strings de nome e e-mail.
-	 * @param nome
-	 * @param email
+	 * Método que verifica a validade das Strings de nome e e-mail. Caso algum dos parâmetros esteja incorreto, será lançada uma exceção do tipo
+	 * {@link IllegalArgumentException} ou {@link NullPointerException}.
+	 * @param nome nome do Aluno
+	 * @param email e-mail do Aluno
 	 */
 	private void verificaDados(String nome, String email) {
 		if(nome == null) {
@@ -61,6 +75,12 @@ public class AlunoController {
 		}
 	}
 	
+	/**
+	 * Método que retona as informações de um Aluno com base na sua matrícula. A String retornada será a mesma de {@link Aluno#toString()}. Caso o Aluno não esteja cadastrado, será lançada uma exceção do tipo
+	 * {@link IllegalArgumentException}.
+	 * @param matricula matrícula do Aluno a ser buscado
+	 * @return String com as informações do Aluno
+	 */
 	public String recuperaAluno(String matricula) {
 		if(!alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro na busca por aluno: Aluno nao encontrado");
@@ -69,6 +89,10 @@ public class AlunoController {
 		
 	}
 	
+	/**
+	 * Método que gera uma listagem ordenada por nome de todos os Alunos cadastrados no sistema.
+	 * @return String listando todos os Alunos ordenados 
+	 */
 	public String listarAlunos() {
 		List<Aluno> alunosOrdenadosNome = new ArrayList<Aluno>();
 		
@@ -89,6 +113,12 @@ public class AlunoController {
 		
 	}
 	
+	/**
+	 * Método que retorna uma informação específica a respeito do Aluno. O atributo desejado é passado como parâmetro.
+	 * @param matricula matrícula do Aluno a ser consultado
+	 * @param atributo atributo que será retornado
+	 * @return String com o atributo solicitado
+	 */
 	public String getInfoAluno(String matricula, String atributo) {
 		
 		if(!alunos.containsKey(matricula)) {
@@ -106,8 +136,13 @@ public class AlunoController {
 		}
 		
 	}
-
-
+	
+	/**
+	 * Método auxiliar no papel de tornar o Aluno Tutor, verificando a presença do Aluno a ser transformado em Tutor no sistema e
+	 * retornando o mesmo.
+	 * @param matricula matrícula do Aluno
+	 * @return Objeto do tipo {@link Aluno} referente à matrícula informada
+	 */
 	public Aluno tornarTutor(String matricula) {
 		if(!this.alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
