@@ -11,20 +11,32 @@ import easyaccept.EasyAccept;
  *
  */
 public class Facade {
-
+	/**
+	 * Controller de Alunos.
+	 */
 	private AlunoController alunoController;
+	/**
+	 * Controller de Tutores.
+	 */
 	private TutorController tutorController;
 	
+	/**
+	 * Construtor da Classe Facade que inicializa os controllers.
+	 */
 	public Facade() {
 		this.alunoController = new AlunoController();
 		this.tutorController = new TutorController();
 	}
 	
+	/**
+	 * Método main para execução dos testes do EasyAccept.
+	 * @param args array de argumentos
+	 */
 	public static void main(String[] args) {
 		args = new String[] { "projeto.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt"};
 		EasyAccept.main(args);
 	}
-
+	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.alunoController.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}

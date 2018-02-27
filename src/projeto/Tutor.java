@@ -6,23 +6,44 @@ import java.util.List;
 import java.util.Map;
 
 public class Tutor implements Comparable<Tutor>{
-
+	/**
+	 * Objeto Aluno ao qual o Tutor se refere.
+	 */
 	private Aluno aluno;
+	/**
+	 * Mapa de Disciplinas do Tutor, onde a chave é o nome da disciplina e 
+	 * o valor é a proficiência do tutor na dada disciplina.
+	 */
 	private Map<String, Integer> disciplinas;
-	private int proficiencia;
+	/**
+	 * Dinheiro recebido pelo Tutor.
+	 */
 	private double dinheiro;
+	/**
+	 * Lista de notas de avaliação do Tutor.
+	 */
 	private List<Double> notaAvaliacaoTutor;
 	
+	/**
+	 * Construtor de Tutor, inicializa os argumentos da classe.
+	 * @param disciplina nome da primeira disciplina do Tutor
+	 * @param proficiencia proficiência da primeira disciplina
+	 * @param aluno referência ao objeto aluno que se tornou Tutor
+	 */
 	public Tutor(String disciplina, int proficiencia, Aluno aluno) {
 		this.disciplinas = new HashMap<String, Integer>();
 		this.disciplinas.put(disciplina, proficiencia);
-		this.proficiencia = proficiencia;
 		this.aluno = aluno;
 		this.dinheiro = 0;
 		this.notaAvaliacaoTutor = new ArrayList<Double>();
 		this.notaAvaliacaoTutor.add(4.0);
 	}
 	
+	/**
+	 * Método que adiciona mais uma disciplina de tutoria ao Tutor.
+	 * @param disciplina nome da disciplina
+	 * @param proficiencia valor de proficiência do Tutor
+	 */
 	public void adicionarDisciplina(String disciplina, int proficiencia) {
 		if (this.disciplinas.containsKey(disciplina)) {
 			throw new IllegalArgumentException("Erro na definicao de papel: Ja eh tutor dessa disciplina");
@@ -44,10 +65,6 @@ public class Tutor implements Comparable<Tutor>{
 	
 	public double pegarNota() {
 		return this.calcularMediaAvaliacao();
-	}
-
-	public int getProficiencia() {
-		return proficiencia;
 	}
 
 	@Override
