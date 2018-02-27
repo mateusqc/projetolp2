@@ -2,6 +2,14 @@ package projeto;
 
 import easyaccept.EasyAccept;
 
+/**
+ * Classe de Fachada para os Controllers do QUEM ME AJUDA.
+ * @author Lucas Cordeiro Brasil
+ * @author Mateus Queiroz Cunha
+ * @author Joeberth Augusto Cordeiro de Souza
+ * @author Vitor Alves Correia Lima de Aquino
+ *
+ */
 public class Facade {
 
 	private AlunoController alunoController;

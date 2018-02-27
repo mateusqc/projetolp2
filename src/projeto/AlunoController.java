@@ -8,9 +8,11 @@ import java.util.Map;
 
 /**
  * Classe que representa o Controller de Alunos do QUEM ME AJUDA.
+ * 
  * @author Lucas Cordeiro Brasil
- * @author Maeteus Queiroz Cunha
- *
+ * @author Mateus Queiroz Cunha
+ * @author Joeberth Augusto Cordeiro de Souza
+ * @author Vitor Alves Correia Lima de Aquino
  */
 public class AlunoController {
 

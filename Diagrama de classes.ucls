@@ -40,7 +40,7 @@
   </class>  
   <class id="5" language="java" name="projeto.Tutor" project="Projeto LP2 - Quem me ajuda" 
     file="/Projeto LP2 - Quem me ajuda/src/projeto/Tutor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="275" width="189" x="415" y="549"/>    
+    <position height="-1" width="-1" x="478" y="687"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

@@ -1,47 +1,46 @@
 package projeto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Tutor implements Comparable<Tutor>{
 
 	private Aluno aluno;
-	private Set<String> disciplinas;
+	private Map<String, Integer> disciplinas;
 	private int proficiencia;
 	private double dinheiro;
 	private double[] notaAvaliacaoTutor;
 	
 	public Tutor(String disciplina, int proficiencia, Aluno aluno) {
-		this.disciplinas = new HashSet<String>();
-		this.disciplinas.add(disciplina);
+		this.disciplinas = new HashMap<String, Integer>();
+		this.disciplinas.put(disciplina, proficiencia);
 		this.proficiencia = proficiencia;
 		this.aluno = aluno;
 		this.dinheiro = 0;
 		this.notaAvaliacaoTutor = new double[] {4.0};
 	}
 	
-	public String toString() {
-		return this.aluno.toString();
-		
-	}
-	
 	public void adicionarDisciplina(String disciplina, int proficiencia) {
-		if (this.disciplinas.contains(disciplina)) {
+		if (this.disciplinas.containsKey(disciplina)) {
 			throw new IllegalArgumentException("Erro na definicao de papel: Ja eh tutor dessa disciplina");
 		}
-		this.disciplinas.add(disciplina);
+		this.disciplinas.put(disciplina, proficiencia);
 	}
 	
 	/**
 	 * Método que calcula a média das avaliações do Tutor.
 	 * @return double com o valor da média
 	 */
-	private double calculaMediaAvaliacao() {
+	private double calcularMediaAvaliacao() {
 		double soma = 0;
 		for (int i = 0; i < this.notaAvaliacaoTutor.length; i++) {
 			soma += this.notaAvaliacaoTutor[i];
 		}
 		return soma/this.notaAvaliacaoTutor.length;
+	}
+	
+	public double pegarNota() {
+		return this.calcularMediaAvaliacao();
 	}
 
 	public int getProficiencia() {
@@ -71,6 +70,12 @@ public class Tutor implements Comparable<Tutor>{
 		} else if (!aluno.equals(other.aluno))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return this.aluno.toString();
+		
 	}
 
 	public int compareTo(Tutor o) {
