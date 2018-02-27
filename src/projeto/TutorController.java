@@ -6,6 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe que representa o Controller de Alunos do QUEM ME AJUDA.
+ * 
+ * @author Lucas Cordeiro Brasil
+ * @author Mateus Queiroz Cunha
+ * @author Joeberth Augusto Cordeiro de Souza
+ * @author Vitor Alves Correia Lima de Aquino
+ */
 public class TutorController {
 	private Map<String, Tutor> tutores;
 	

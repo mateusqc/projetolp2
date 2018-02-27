@@ -1,5 +1,8 @@
 package projeto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Classe que representa um Aluno no sistema QUEM ME AJUDA.
  * 
@@ -31,21 +34,20 @@ public class Aluno implements Comparable<Aluno>{
 	 */
 	private String email;
 	/**
-	 * Array de notas de avaliação do Aluno.
-	 * A média será sempre calculada.
+	 * Lista de notas de avaliação do Aluno.
 	 */
-	private double[] notaAvaliacao;
+	private List<Double> notaAvaliacao;
 	
 	/**
-	 * Construtor completo (com telefone) de Aluno. 
-	 * @param nome
-	 * @param matricula
-	 * @param codigoCurso
-	 * @param telefone
-	 * @param email
+	 * Construtor de Aluno. Caso o telefone informado seja vazio ou nulo, será amazenado vazio.
+	 * O valor inicial da média é 5, por isso foi adicionado um único valor ao Array de notas. 
+	 * @param nome nome do aluno
+	 * @param matricula matrícula do aluno
+	 * @param codigoCurso código do curso
+	 * @param telefone telefone do aluno
+	 * @param email e-mail do aluno
 	 */
 	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		
 		this.verificaDados(nome, email);
 		
 		this.matricula = matricula;
@@ -57,13 +59,14 @@ public class Aluno implements Comparable<Aluno>{
 			this.telefone = telefone;
 		}
 		this.email = email;
-		this.notaAvaliacao = new double[] {5.0};
+		this.notaAvaliacao = new ArrayList<Double>();
+		this.notaAvaliacao.add(5.0);
 	}
 	
 	/**
 	 * Método que verifica a validade das Strings de nome e e-mail.
-	 * @param nome
-	 * @param email
+	 * @param nome nome do aluno
+	 * @param email email do aluno
 	 */
 	private void verificaDados(String nome, String email) {
 		if(nome == null) {
@@ -95,23 +98,36 @@ public class Aluno implements Comparable<Aluno>{
 	 */
 	private double calculaMediaAvaliacao() {
 		double soma = 0;
-		for (int i = 0; i < this.notaAvaliacao.length; i++) {
-			soma += this.notaAvaliacao[i];
+		for (double nota : this.notaAvaliacao) {
+			soma += nota;
 		}
-		return soma/this.notaAvaliacao.length;
+		return soma/this.notaAvaliacao.size();
 	}
-
+	
+	/**
+	 * Método que retorna o atributo Nome do Aluno.
+	 * @return String com o nome do aluno
+	 */
 	public String getNome() {
 		return this.nome;
 	}
 	
+	/**
+	 * Método que retorna o atributo E-mail do Aluno.
+	 * @return String com o e-mail do aluno
+	 */
 	public String getEmail() {
 		return this.email;
 	}
 	
+	/**
+	 * Método que retorna o atributo Telefone do Aluno.
+	 * @return String com o telefone do aluno
+	 */
 	public String getTelefone() {
 		return this.telefone;
 	}
+	
 	/**
 	 * Retorna o valor da média das avaliações do Aluno.
 	 * @return double com o valor da média
@@ -133,7 +149,10 @@ public class Aluno implements Comparable<Aluno>{
 		return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " +  this.telefone + " - " + this.email;
 
 	}
-
+	
+	/**
+	 * Método hashCode que tem como como base de cálculo o atributo matricula.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,6 +161,9 @@ public class Aluno implements Comparable<Aluno>{
 		return result;
 	}
 
+	/**
+	 * Método equals que tem como base de comparação o atributo matricula.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -159,6 +181,10 @@ public class Aluno implements Comparable<Aluno>{
 		return true;
 	}
 
+	/**
+	 * Método compareTo implementado da interface {@link Comparable}. A ordenação natural definida para Aluno foi a de ordem
+	 * alfabética por nome.
+	 */
 	public int compareTo(Aluno a) {
 		return this.nome.compareTo(a.nome);
 	}

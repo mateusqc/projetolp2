@@ -1,6 +1,8 @@
 package projeto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Tutor implements Comparable<Tutor>{
@@ -9,7 +11,7 @@ public class Tutor implements Comparable<Tutor>{
 	private Map<String, Integer> disciplinas;
 	private int proficiencia;
 	private double dinheiro;
-	private double[] notaAvaliacaoTutor;
+	private List<Double> notaAvaliacaoTutor;
 	
 	public Tutor(String disciplina, int proficiencia, Aluno aluno) {
 		this.disciplinas = new HashMap<String, Integer>();
@@ -17,7 +19,8 @@ public class Tutor implements Comparable<Tutor>{
 		this.proficiencia = proficiencia;
 		this.aluno = aluno;
 		this.dinheiro = 0;
-		this.notaAvaliacaoTutor = new double[] {4.0};
+		this.notaAvaliacaoTutor = new ArrayList<Double>();
+		this.notaAvaliacaoTutor.add(4.0);
 	}
 	
 	public void adicionarDisciplina(String disciplina, int proficiencia) {
@@ -33,10 +36,10 @@ public class Tutor implements Comparable<Tutor>{
 	 */
 	private double calcularMediaAvaliacao() {
 		double soma = 0;
-		for (int i = 0; i < this.notaAvaliacaoTutor.length; i++) {
-			soma += this.notaAvaliacaoTutor[i];
+		for (double nota : this.notaAvaliacaoTutor) {
+			soma += nota;
 		}
-		return soma/this.notaAvaliacaoTutor.length;
+		return soma/this.notaAvaliacaoTutor.size();
 	}
 	
 	public double pegarNota() {
