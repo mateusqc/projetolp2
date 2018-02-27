@@ -55,7 +55,7 @@ public class AlunoController {
 		}
 		
 		for(int i = 0; i < emailParcionado.length; i++) {
-			if(emailParcionado[i].equals("") || emailParcionado[i] == null) {
+			if(emailParcionado[i].equals("")) {
 				throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 			}
 		}
@@ -76,8 +76,7 @@ public class AlunoController {
 			alunosOrdenadosNome.add(aluno);	
 		}
 		
-		Collections.sort(alunosOrdenadosNome, new AlunoComparator());
-		//não seria melhor comparable? não existem outras possíveis ordenações
+		Collections.sort(alunosOrdenadosNome);
 		
 		String alunosListados = "";
 		for(int i=0; i < alunosOrdenadosNome.size(); i++) {

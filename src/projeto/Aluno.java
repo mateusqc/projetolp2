@@ -7,7 +7,7 @@ package projeto;
  * @author Mateus Queiroz Cunha
  *
  */
-public class Aluno {
+public class Aluno implements Comparable<Aluno>{
 
 	/**
 	 * Matrícula do Aluno.
@@ -38,7 +38,6 @@ public class Aluno {
 	 * Função do Aluno - Apenas para tutor, há melhor solução?
 	 */
 	private Funcao funcao;
-	private double notaAvaliacao;
 	
 	/**
 	 * Construtor completo (com telefone) de Aluno. 
@@ -63,7 +62,6 @@ public class Aluno {
 		this.email = email;
 		this.notaAvaliacao = new double[] {5.0};
 		this.funcao = new Estudante();
-		this.notaAvaliacao = 5;
 	}
 	
 	/**
@@ -81,13 +79,18 @@ public class Aluno {
 		if(!email.contains("@")) {
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 		}
-
+		
 		String[] emailParcionado = email.split("@");
 		
+		if (emailParcionado.length != 2) {
+			throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
+		}
+		
 		for(int i = 0; i < emailParcionado.length; i++) {
-			if(emailParcionado[i].trim() == "") {
+			if(emailParcionado[i].equals("")) {
 				throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 			}
+		}
 	}
 	
 	/**
@@ -137,5 +140,9 @@ public class Aluno {
 	
 	public void tornaTutor(String disciplina, int proficiencia) {
 		this.funcao = new Tutor(disciplina, proficiencia);
+	}
+
+	public int compareTo(Aluno a) {
+		return this.nome.compareTo(a.nome);
 	}
 }
