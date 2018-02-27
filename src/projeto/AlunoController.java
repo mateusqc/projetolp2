@@ -15,11 +15,9 @@ import java.util.Map;
 public class AlunoController {
 
 	private Map<String, Aluno> alunos;
-	private Map<String, List<String>> tutores;
 	
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
-		this.tutores = new HashMap<String, List<String>>();
 	}
 		
 	
@@ -108,59 +106,11 @@ public class AlunoController {
 	}
 
 
-	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		
-		if(!alunos.containsKey(matricula)) {
-			
+	public Aluno tornarTutor(String matricula) {
+		if(!this.alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
-		
 		}
-		if(proficiencia < 1 || proficiencia > 5) {
-			
-			throw new IllegalArgumentException("Erro na definicao de papel: Proficiencia invalida");
-			
-		}
-		if(tutores.containsKey(matricula) && tutores.get(matricula).contains(disciplina)) {
-			
-			throw new IllegalArgumentException("Erro na definicao de papel: Ja eh tutor dessa disciplina");
-			
-		}
-	
-		alunos.get(matricula).tornaTutor(disciplina, proficiencia);
-		if(tutores.containsKey(matricula)) {
-			
-			tutores.get(matricula).add(disciplina);
-			
-		}else {
-			tutores.put(matricula, new ArrayList<String>());
-			tutores.get(matricula).add(disciplina);
-		}
-	}
-
-
-	public String recuperaTutor(String matricula) {
-		if(!tutores.containsKey(matricula)) {
-			
-			throw new IllegalArgumentException("Erro na busca por tutor: Tutor nao encontrado");
-		}
-		
-		return alunos.get(matricula).toString();
-	
-	}
-	
-	public String listarTutores() {
-		
-		String tutoresListados = "";
-		
-		for(String matricula : tutores.keySet()) {
-			
-			tutoresListados += alunos.get(matricula).toString();
-			tutoresListados += ", ";
-			
-		} 
-		
-		return tutoresListados;
-			
+		return this.alunos.get(matricula);
 	}
 	
 }

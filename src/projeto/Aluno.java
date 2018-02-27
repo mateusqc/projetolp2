@@ -34,10 +34,6 @@ public class Aluno implements Comparable<Aluno>{
 	 * A média será sempre calculada.
 	 */
 	private double[] notaAvaliacao;
-	/**
-	 * Função do Aluno - Apenas para tutor, há melhor solução?
-	 */
-	private Funcao funcao;
 	
 	/**
 	 * Construtor completo (com telefone) de Aluno. 
@@ -61,7 +57,6 @@ public class Aluno implements Comparable<Aluno>{
 		}
 		this.email = email;
 		this.notaAvaliacao = new double[] {5.0};
-		this.funcao = new Estudante();
 	}
 	
 	/**
@@ -137,9 +132,30 @@ public class Aluno implements Comparable<Aluno>{
 		return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " +  this.telefone + " - " + this.email;
 
 	}
-	
-	public void tornaTutor(String disciplina, int proficiencia) {
-		this.funcao = new Tutor(disciplina, proficiencia);
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		if (matricula == null) {
+			if (other.matricula != null)
+				return false;
+		} else if (!matricula.equals(other.matricula))
+			return false;
+		return true;
 	}
 
 	public int compareTo(Aluno a) {
