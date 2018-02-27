@@ -7,8 +7,8 @@ public class Aluno {
 	private int codigoCurso;
 	private String telefone;
 	private String email;
-	private double notaAvaliacao;
 	private Funcao funcao;
+	private double notaAvaliacao;
 	
 	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		
@@ -23,9 +23,8 @@ public class Aluno {
 			this.telefone = telefone;
 		}
 		this.email = email;
-		this.notaAvaliacao = 5;
 		this.funcao = new Estudante();
-		
+		this.notaAvaliacao = 5;
 	}
 	
 	public void verificaDados(String nome, String email) {
@@ -45,8 +44,12 @@ public class Aluno {
 			
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 		}
-				
-		String[] emailParcionado = email.split("@");
+
+		if(email.charAt(0) == '@' || email.charAt(-1) == '@') {
+			throw new IllegalArgumentException();
+		}
+		
+/*		String[] emailParcionado = email.split("@");
 		
 		for(int i = 0; i < emailParcionado.length; i++) {
 			
@@ -57,7 +60,7 @@ public class Aluno {
 			}
 			
 		}
-		
+*/
 	}
 	@Override
 	public String toString() {
@@ -106,5 +109,10 @@ public class Aluno {
 		this.funcao = new Tutor(disciplina, proficiencia);
 		
 	}
-	
+
+	public double getNotaAvaliacao() {
+		return notaAvaliacao;
+	}
+
+
 }
