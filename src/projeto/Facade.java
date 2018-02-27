@@ -13,10 +13,8 @@ public class Facade {
 
 	}
 
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
-			
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		alunoController.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
-		
 	}
 	
 	public String recuperaAluno(String matricula) {

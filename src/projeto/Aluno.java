@@ -20,7 +20,7 @@ public class Aluno {
 	/**
 	 * Código do curso do Aluno.
 	 */
-	private String codigoCurso;
+	private int codigoCurso;
 	/**
 	 * Telefone do Aluno - Atributo opicional.
 	 */
@@ -47,7 +47,7 @@ public class Aluno {
 	 * @param telefone
 	 * @param email
 	 */
-	public Aluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
+	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		
 		this.verificaDados(nome, email);
 		
