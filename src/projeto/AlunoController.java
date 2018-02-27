@@ -23,7 +23,7 @@ public class AlunoController {
 	}
 		
 	
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.verificaDados(nome, email);
 		//verificar telefone?
 		if(alunos.containsKey(matricula)) {
@@ -55,7 +55,7 @@ public class AlunoController {
 		}
 		
 		for(int i = 0; i < emailParcionado.length; i++) {
-			if(emailParcionado[i] == "" || emailParcionado[i] == null) {
+			if(emailParcionado[i].equals("") || emailParcionado[i] == null) {
 				throw new IllegalArgumentException("Erro no cadastro de aluno: Email invalido");
 			}
 		}
