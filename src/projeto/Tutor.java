@@ -91,7 +91,7 @@ public class Tutor implements Comparable<Tutor>{
 	public double pegarNota() {
 		return this.calcularMediaAvaliacao();
 	}
-
+	/**
 	 * Método que adiciona um horario na lista de horarios de um tutor
 	 * @param horario
 	 * @param dia
