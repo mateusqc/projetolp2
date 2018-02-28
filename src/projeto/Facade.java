@@ -112,4 +112,44 @@ public class Facade {
 	public String listarTutores() {
 		return this.tutorController.listarTutores();
 	}
+	
+	/**
+	 * Método que recebe os parametros necessários e realiza cadastro de horario de um tutor
+	 * @param email
+	 * @param horario
+	 * @param dia
+	 */
+	public void cadastrarHorario(String email, String horario, String dia) {
+		this.tutorController.cadastrarHorario(email, horario, dia);
+	}
+	
+	/**
+	 * Método que recebe os parametros necessários e realiza cadastro do local de atendimento de um tutor
+	 * @param email
+	 * @param local
+	 */
+	public void cadastrarLocalDeAtendimento(String email, String local) {
+		this.tutorController.cadastrarLocalDeAtendimento(email, local);
+	}
+	
+	/**
+	 * Método que verifica se um determinado tutor possui o horario passado para verificação
+	 * @param email
+	 * @param horario
+	 * @param dia
+	 * @return
+	 */
+	public boolean consultaHorario(String email, String horario,String dia) {
+		return this.tutorController.consultaHorario(email, horario, dia);
+	}
+	
+	/**
+	 * Método que verifica se um determinado tutor possui o local passado para verificação
+	 * @param email
+	 * @param local
+	 * @return
+	 */
+	public boolean consultaLocal(String email, String local) {
+		return this.tutorController.consultaLocal(email, local);
+	}
 }
