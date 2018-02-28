@@ -5,6 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe que representa um Aluno no sistema QUEM ME AJUDA.
+ * 
+ * Projeto de LP2 - Quem me ajuda
+ * 
+ * @author Lucas Cordeiro Brasil
+ * @author Mateus Queiroz Cunha
+ * @author Joeberth Augusto Cordeiro de Souza
+ * @author Vitor Alves Correia Lima de Aquino
+ */
 public class Tutor implements Comparable<Tutor>{
 	/**
 	 * Objeto Aluno ao qual o Tutor se refere.
@@ -74,11 +84,14 @@ public class Tutor implements Comparable<Tutor>{
 		return soma/this.notaAvaliacaoTutor.size();
 	}
 	
+	/**
+	 * Método que retorna a média de avaliações do Tutor.
+	 * @return Double com a média de avaliações do Tutor.
+	 */
 	public double pegarNota() {
 		return this.calcularMediaAvaliacao();
 	}
 
-	/**
 	 * Método que adiciona um horario na lista de horarios de um tutor
 	 * @param horario
 	 * @param dia
@@ -115,6 +128,10 @@ public class Tutor implements Comparable<Tutor>{
 		return horarios;
 	}
 
+	/**
+	 * Método hashCode com cálculo baseado no atributo que armazena um objeto aluno, ou seja, {@link #aluno}.
+	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,6 +140,9 @@ public class Tutor implements Comparable<Tutor>{
 		return result;
 	}
 
+	/**
+	 * Método equals com comparação baseada no atributo que armazena um objeto aluno, ou seja, {@link #aluno}.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -140,12 +160,19 @@ public class Tutor implements Comparable<Tutor>{
 		return true;
 	}
 	
+	/**
+	 * Método que gera a representação em String de um tutor. Utiliza o método {@link Aluno#toString()} do atributo {@link #aluno}. 
+	 */
 	@Override
 	public String toString() {
 		return this.aluno.toString();
 		
 	}
 
+	/**
+	 * Método que compara dois tutores e retorna qual dos dois é o maior. A comparação utiliza como base o método {@link Aluno#compareTo(Aluno)}
+	 * do atributo {@link #aluno}.
+	 */
 	public int compareTo(Tutor o) {
 		return this.aluno.compareTo(o.aluno);
 	}
