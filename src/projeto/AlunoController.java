@@ -143,9 +143,9 @@ public class AlunoController {
 	 * @param matricula matrícula do Aluno
 	 * @return Objeto do tipo {@link Aluno} referente à matrícula informada
 	 */
-	public Aluno tornarTutor(String matricula) {
+	public Aluno getAluno(String matricula) {
 		if(!this.alunos.containsKey(matricula)) {
-			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
+			throw new IllegalArgumentException("Aluno nao encontrado");
 		}
 		return this.alunos.get(matricula);
 	}

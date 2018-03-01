@@ -91,7 +91,15 @@ public class Facade {
 	 * @param proficiencia
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		this.tutorController.tornarTutor(matricula, disciplina, proficiencia, this.alunoController.tornarTutor(matricula));
+		try {
+			this.tutorController.tornarTutor(matricula, disciplina, proficiencia, this.alunoController.getAluno(matricula));
+		} catch (IllegalArgumentException iae) {
+			if (iae.getMessage().equals("Aluno nao encontrado")) {
+			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
+			} else {
+				throw iae;
+			}
+		}
 	}
 	
 	/**

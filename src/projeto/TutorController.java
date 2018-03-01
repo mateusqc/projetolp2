@@ -18,12 +18,14 @@ import java.util.Map;
  */
 public class TutorController {
 	private Map<String, Tutor> tutores;
+	private Map<String, String> emailTutores;
 	
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
 	 */
 	public TutorController() {
 		this.tutores = new HashMap<String, Tutor>();
+		this.emailTutores = new HashMap<String, String>();
 	}
 	
 	/**
@@ -39,6 +41,7 @@ public class TutorController {
 		}
 		if(!tutores.containsKey(matricula)) {
 			this.tutores.put(matricula, new Tutor(disciplina, proficiencia, aluno));
+			this.emailTutores.put(aluno.getEmail(), matricula);
 		} else {
 			this.tutores.get(matricula).adicionarDisciplina(disciplina, proficiencia);
 		}
@@ -81,10 +84,10 @@ public class TutorController {
 	}
 	
 	/**
-	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro de horario de um tutor
-	 * @param email
-	 * @param horario
-	 * @param dia
+	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro de horario de atendimento de um tutor.
+	 * @param email email do tutor
+	 * @param horario horário de atendimento
+	 * @param dia dia de atendimento
 	 */
 	public void cadastrarHorario(String email, String horario, String dia) {
 
@@ -96,29 +99,22 @@ public class TutorController {
 			throw new IllegalArgumentException("Erro no cadastrar horario: horario nao pode ser vazio ou em branco");
 		}
 		
-		if(dia.trim().equals("") || horario == null) {
+		if(dia.trim().equals("") || dia == null) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: dia nao pode ser vazio ou em branco");
 		}
 		
-		int ajuda = 0;
-		for (Tutor tutor : this.tutores.values()) {
-			
-			if(tutor.getAluno().getEmail().equals(email)) {
-				tutor.cadastrarHorario(horario, dia);
-				ajuda += 1;
-				break;
-			} 
-		} if(ajuda == 0) {
+		if (!this.emailTutores.containsKey(email)) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
 		}
+		
+		this.tutores.get(this.emailTutores.get(email)).cadastrarHorario(horario, dia);
 	}	
 
 	/**
-	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro do local de atendimento de um tutor
-	 * @param email
-	 * @param local
-	 */
-	
+	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro do local de atendimento de um tutor.
+	 * @param email email do tutor
+	 * @param local local de atendimento
+	 */	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
 		
 		if(email.trim().equals("") || email == null) {
@@ -129,49 +125,61 @@ public class TutorController {
 			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: local nao pode ser vazio ou em branco");
 		}
 		
-		int ajuda = 0;
-		for (Tutor tutor : this.tutores.values()) {
-			if( tutor.getAluno().getEmail().equals(email)) {
-				tutor.cadastrarLocalDeAtendimento(local);
-				ajuda += 1;
-				break;
-			}
-		}	if(ajuda ==0) {
+		if (!this.emailTutores.containsKey(email)) {
 			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: tutor nao cadastrado");
 		}
+		
+		this.tutores.get(this.emailTutores.get(email)).cadastrarLocalDeAtendimento(local);
 	}
 	
 	/**
-	 * Método que verifica se um determinado tutor possui o horario passado para verificação
-	 * @param email
-	 * @param horario
-	 * @param dia
-	 * @return
+	 * Método que verificia a disponibilidade de atendimento do tutor especificado por e-mail no horário e dia também especificados.
+	 * @param email email do tutor
+	 * @param horario horário de atendimento
+	 * @param dia dia de atendimento
+	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
 	 */
 	public boolean consultaHorario(String email, String horario, String dia) {
-		for (Tutor tutor : this.tutores.values()) {
-			if( tutor.getAluno().getEmail().equals(email)) {
-				System.out.println(tutor.getHorarios().contains(horario + " - " + dia));
-				if(tutor.getHorarios().contains(horario + " - " + dia)) {
-					return true;
-				}
-			} 
-		} return false; 
+		if(email.trim().equals("") || email == null) {
+			throw new IllegalArgumentException("Erro no cadastrar horario: email nao pode ser vazio ou em branco");
+		}
+		
+		if(horario.trim().equals("") || horario == null) {
+			throw new IllegalArgumentException("Erro no cadastrar horario: horario nao pode ser vazio ou em branco");
+		}
+		
+		if(dia.trim().equals("") || dia == null) {
+			throw new IllegalArgumentException("Erro no cadastrar horario: dia nao pode ser vazio ou em branco");
+		}
+		
+		if (!this.emailTutores.containsKey(email)) {
+			//throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
+			return false;
+		}
+		
+		return this.tutores.get(this.emailTutores.get(email)).consultaHorario(horario, dia); 
 	}
 
 	/**
-	 * Método que verifica se um determinado tutor possui o local passado para verificação
-	 * @param email
-	 * @param local
-	 * @return
+	 * Método que verificia a disponibilidade de atendimento do tutor especificado por e-mail no local também especificado.
+	 * @param email email do tutor
+	 * @param local local de atendimento
+	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
 	 */
 	public boolean consultaLocal(String email, String local) {
-		for (Tutor tutor : this.tutores.values()) {
-			if( tutor.getAluno().getEmail().equals(email)) {
-				if(tutor.getLocais().contains(local)) {
-					return true;
-				} 	
-			} 
-		} return false;
+		if(email.trim().equals("") || email == null) {
+			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: email nao pode ser vazio ou em branco");
+		}
+		
+		if(local.trim().equals("") || local == null) {
+			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: local nao pode ser vazio ou em branco");
+		}
+		
+		if (!this.emailTutores.containsKey(email)) {
+			//throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
+			return false;
+		}
+		
+		return this.tutores.get(this.emailTutores.get(email)).consultaLocal(local);
 	}
 }

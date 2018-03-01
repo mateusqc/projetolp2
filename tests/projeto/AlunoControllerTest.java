@@ -164,7 +164,7 @@ public class AlunoControllerTest {
 	public void testTornaTutorValido() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
 		Aluno aluno = new Aluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertTrue("Deve ser retornado um objeto aluno correspondente ao aluno", aluno.equals(this.alunoController.tornarTutor("117110907")));
+		assertTrue("Deve ser retornado um objeto aluno correspondente ao aluno", aluno.equals(this.alunoController.getAluno("117110907")));
 	}
 	
 	/**
@@ -173,6 +173,6 @@ public class AlunoControllerTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testTornaTutorInvalido() {
-		this.alunoController.tornarTutor("117110907");
+		this.alunoController.getAluno("117110907");
 	}
 }

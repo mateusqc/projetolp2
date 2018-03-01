@@ -4,7 +4,7 @@
   router="FAN">  
   <class id="1" language="java" name="projeto.TutorController" project="Projeto LP2 - Quem me ajuda" 
     file="/Projeto LP2 - Quem me ajuda/src/projeto/TutorController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="131" width="215" x="370" y="324"/>    
+    <position height="-1" width="-1" x="444" y="391"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -13,7 +13,7 @@
   </class>  
   <class id="2" language="java" name="projeto.Facade" project="Projeto LP2 - Quem me ajuda" 
     file="/Projeto LP2 - Quem me ajuda/src/projeto/Facade.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="221" width="266" x="497" y="63"/>    
+    <position height="-1" width="-1" x="649" y="67"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,7 +22,7 @@
   </class>  
   <class id="3" language="java" name="projeto.Aluno" project="Projeto LP2 - Quem me ajuda" 
     file="/Projeto LP2 - Quem me ajuda/src/projeto/Aluno.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="761" y="739"/>    
+    <position height="-1" width="-1" x="765" y="796"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -40,7 +40,7 @@
   </class>  
   <class id="5" language="java" name="projeto.Tutor" project="Projeto LP2 - Quem me ajuda" 
     file="/Projeto LP2 - Quem me ajuda/src/projeto/Tutor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="478" y="687"/>    
+    <position height="-1" width="-1" x="443" y="789"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,43 +48,63 @@
     </display>  
   </class>  
   <association id="6">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="7" name="tutorController"/>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="7" name="tutores">        
+        <position height="0" width="0" x="-35" y="102"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-35" y="102"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="9">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="10" name="alunoController"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="10" name="aluno">        
+        <position height="0" width="0" x="4" y="57"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="4" y="57"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="12">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="13" name="alunos"/>      
-      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
+      <attribute id="13" name="alunos">        
+        <position height="0" width="0" x="4" y="57"/>      
+      </attribute>      
+      <multiplicity id="14" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="4" y="57"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="tutores"/>      
-      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="16" name="tutorController">        
+        <position height="0" width="0" x="-33" y="2"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-33" y="2"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="18">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="19" name="aluno"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="19" name="alunoController">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
