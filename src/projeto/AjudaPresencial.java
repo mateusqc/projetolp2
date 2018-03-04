@@ -40,4 +40,9 @@ public class AjudaPresencial extends Ajuda {
 		this.localInteresse = localInteresse;
 	}
 
+	@Override
+	public String pegarTutor() {
+		return "Tutor - " + this.matriculaTutor + ", horario - " + this.horario + ", dia - " + this.dia + ", local - " + this.localInteresse + ", disciplina - " + this.disciplina;
+	}
+
 }

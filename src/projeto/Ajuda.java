@@ -2,8 +2,8 @@ package projeto;
 
 public abstract class Ajuda {
 	private String matriculaAluno;
-	private String disciplina;
-	private String matriculaTutor;
+	protected String disciplina;
+	protected String matriculaTutor;
 	
 	public Ajuda (String matriculaAluno, String disciplina,String matriculaTutor) {
 		this.matriculaAluno = matriculaAluno;
@@ -34,5 +34,7 @@ public abstract class Ajuda {
 	public void setMatriculaTutor(String matriculaTutor) {
 		this.matriculaTutor = matriculaTutor;
 	}
+	
+	public abstract String pegarTutor();
 
 }

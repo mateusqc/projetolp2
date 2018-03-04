@@ -7,4 +7,9 @@ public class AjudaOnline extends Ajuda {
 	super(matriculaAluno,disciplina,matriculaTutor);
 	}
 
+	@Override
+	public String pegarTutor() {
+		return "Tutor - " + this.matriculaTutor + ", disciplina- " + this.disciplina;
+	}
+
 }
