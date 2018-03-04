@@ -274,14 +274,7 @@ public class TutorController {
 		return ajudas.size();
 
 	}
-
-	/*
-	 * Na ajuda online, a interação irá acontecer via email (ou hangouts) sem
-	 * necessidade de disponibilidade de horário. Há necessidade de especificar
-	 * apenas a disciplina de interesse da ajuda. O tutor associado deve ter
-	 * proficiência nessa disciplina e ser aquele de maior pontuação (ou o primeiro
-	 * cadastrado em caso de empate).
-	 */
+	
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		AjudaOnline ajuda = new AjudaOnline(matrAluno, disciplina, getTutorAjudaOnline(disciplina).getAluno().getMatricula());
 		ajudas.add(ajuda);
