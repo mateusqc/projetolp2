@@ -151,9 +151,4 @@ public class AlunoController {
 		}
 		return this.alunos.get(matricula);
 	}
-	
-	public int pedirAjudaPresencial (String disciplina, String horario, String dia, String localInteresse) {
-		return 0;
-		
-	}
 }

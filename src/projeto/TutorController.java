@@ -204,15 +204,15 @@ public class TutorController {
 		return false;
 	}
 
-	/*
+	/**
 	 * Na ajuda presencial, o aluno indica a disciplina e dia que quer uma ajuda e o
 	 * local que tem interesse. Ao realizar um pedido no sistema, o sistema deve
-	 * associar um tutor a esse pedido. O tutor escolhido precisa ter profici�ncia
-	 * na disciplina e disponibilidade no local e no hor�rio/dia indicado.
+	 * associar um tutor a esse pedido. O tutor escolhido precisa ter proficiência
+	 * na disciplina e disponibilidade no local e no horário/dia indicado.
 	 * 
-	 * Caso mais de um tutor esteja dispon�vel naquele dia o de maior pontua��o deve
+	 * Caso mais de um tutor esteja disponível naquele dia o de maior pontuação deve
 	 * ser retornado (ou o primeiro aluno cadastrado em caso de empate). O mesmo
-	 * tutor pode ser retornado para v�rios pedidos de ajuda diferentes.
+	 * tutor pode ser retornado para vários pedidos de ajuda diferentes.
 	 * 
 	 * 
 	 */
@@ -242,6 +242,18 @@ public class TutorController {
 		return tutorEscolhido;
 	}
 
+	/**
+	 * Na ajuda online, o aluno indica a disciplina de interesse por ajuda. Ao
+	 * realizar um pedido no sistema, o sistema deve associar um tutor a esse
+	 * pedido. O tutor escolhido precisa ter proficiência na disciplina.
+	 * 
+	 * Caso mais de um tutor esteja disponível para aquela disciplina,o de maior
+	 * pontuação deve ser retornado (ou o primeiro aluno cadastrado em caso de
+	 * empate). O mesmo tutor pode ser retornado para vários pedidos de ajuda
+	 * diferentes.
+	 * 
+	 * 
+	 */
 	private Tutor getTutorAjudaOnline(String disciplina) {
 		Tutor tutorEscolhido = null;
 
@@ -264,6 +276,20 @@ public class TutorController {
 		return tutorEscolhido;
 	}
 
+	/**
+	 * Método que realiza o cadastro de uma ajuda presencial.
+	 * 
+	 * @param matrAluno
+	 *            matricula do aluno requisitando a ajuda.
+	 * @param disciplina
+	 *            disciplina de desejo de ajuda.
+	 * @param horario
+	 *            horario de atendimento para a ajuda.
+	 * @param dia
+	 *            dia de atendimento para a ajuda.
+	 * @param localInteresse
+	 *            local de atendimento da ajuda.
+	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia,
 			String localInteresse) {
 		if (matrAluno.trim().equals("")) {
@@ -293,6 +319,14 @@ public class TutorController {
 
 	}
 
+	/**
+	 * Método que realiza o cadastro de uma ajuda presencial.
+	 * 
+	 * @param matrAluno
+	 *            matricula do aluno requisitando a ajuda.
+	 * @param disciplina
+	 *            disciplina de desejo de ajuda.
+	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		if (matrAluno.trim().equals("")) {
 			throw new IllegalArgumentException(
@@ -309,25 +343,41 @@ public class TutorController {
 
 	}
 
+	/**
+	 * Método que retorna o tutor responsável por determinada ajuda, identificada
+	 * por seu id.
+	 * 
+	 * @param idAjuda
+	 *            identificador da ajuda de interesse.
+	 */
 	public String pegarTutor(int idAjuda) {
-		if(idAjuda < 0) {
+		if (idAjuda < 0) {
 			throw new IllegalArgumentException("Erro ao tentar recuperar tutor : id nao pode menor que zero ");
 		}
-		if(idAjuda > ajudas.size()) {
+		if (idAjuda > ajudas.size()) {
 			throw new IllegalArgumentException("Erro ao tentar recuperar tutor : id nao encontrado ");
 		}
 		return ajudas.get(idAjuda - 1).pegarTutor();
 	}
 
-	String getInfoAjuda(int idAjuda, String atributo) {
-		if(idAjuda < 0) {
+	/**
+	 * Método que recupera determinada informação da ajuda.
+	 * 
+	 * @param idAjuda
+	 *            o identificador da ajuda de interesse.
+	 * @param atributo
+	 *            o atributo que se quer recuperar da ajuda.
+	 */
+	public String getInfoAjuda(int idAjuda, String atributo) {
+		if (idAjuda < 0) {
 			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : id nao pode menor que zero ");
 		}
-		if(idAjuda > ajudas.size()) {
+		if (idAjuda > ajudas.size()) {
 			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : id nao encontrado ");
 		}
-		if(atributo.trim().equals("")) {
-			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
+		if (atributo.trim().equals("")) {
+			throw new IllegalArgumentException(
+					"Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
 		}
 
 		Ajuda ajuda = ajudas.get(idAjuda - 1);
@@ -347,38 +397,59 @@ public class TutorController {
 
 		}
 	}
-	
+
+	/**
+	 * Método que avalia um tutor por determinada ajuda realizada.
+	 * 
+	 * @param idAjuda
+	 *            o identificador da ajuda de interesse.
+	 * @param nota
+	 *            nota de avaliação do tutor por sua ajuda.
+	 */
 	public String avaliarTutor(int idAjuda, int nota) {
-		if(nota < 0) {
+		if (nota < 0) {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser menor que 0");
 		}
-		if(nota > 5) {
+		if (nota > 5) {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser maior que 5");
 		}
-		if(idAjuda < 0) {
+		if (idAjuda < 0) {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: id nao pode menor que zero ");
 		}
-		if(idAjuda > ajudas.size()) {
+		if (idAjuda > ajudas.size()) {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: id nao encontrado ");
 		}
-		if(!ajudas.get(idAjuda - 1).foiAvaliado()) {
+		if (!ajudas.get(idAjuda - 1).foiAvaliado()) {
 			ajudas.get(idAjuda - 1).avaliaAjuda();
 			return tutores.get(ajudas.get(idAjuda - 1).getMatriculaTutor()).avaliarTutor(nota);
-		}else {
+		} else {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: Ajuda ja avaliada");
 		}
 	}
-	
+
+	/**
+	 * Método que retorna a nota de avaliação de um tutor.
+	 * 
+	 * @param matriculaTutor
+	 *            matrícula do tutor de interesse.
+	 */
 	public String pegarNota(String matriculaTutor) {
-		
+
 		return this.tutores.get(matriculaTutor).pegarNota();
-		
+
 	}
 
+	/**
+	 * Método que retorna o nível de determinado tutor, de acordo com sua nota de
+	 * avaliação.
+	 * 
+	 * @param matriculaTutor
+	 *            matrícula do tutor de interesse.
+	 */
 	public String pegarNivel(String matriculaTutor) {
-		
+
 		return this.tutores.get(matriculaTutor).pegarNivel();
-		
+
 	}
 
 }

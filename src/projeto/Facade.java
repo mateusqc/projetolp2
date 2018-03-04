@@ -64,8 +64,8 @@ public class Facade {
 	}
 
 	/**
-	 * Método que retorna as informações de um aluno no sistema. Utiliza o
-	 * método {@link AlunoController#recuperaAluno(String)} da classe
+	 * Método que retorna as informações de um aluno no sistema. Utiliza o método
+	 * {@link AlunoController#recuperaAluno(String)} da classe
 	 * {@link AlunoController}.
 	 * 
 	 * @param matricula
@@ -88,8 +88,8 @@ public class Facade {
 	}
 
 	/**
-	 * Método que retorna uma infomação específica do aluno (atributo) de acordo
-	 * com o solicitado. Utiliza o método
+	 * Método que retorna uma infomação específica do aluno (atributo) de acordo com
+	 * o solicitado. Utiliza o método
 	 * {@link AlunoController#getInfoAluno(String, String)} da classe
 	 * {@link AlunoController}.
 	 * 
@@ -119,9 +119,9 @@ public class Facade {
 	}
 
 	/**
-	 * Método que retorna as informações do Tutor respectivo à matrícula
-	 * informada. Utiliza o método {@link TutorController#recuperaTutor(String)} da
-	 * classe {@link TutorController}.
+	 * Método que retorna as informações do Tutor respectivo à matrícula informada.
+	 * Utiliza o método {@link TutorController#recuperaTutor(String)} da classe
+	 * {@link TutorController}.
 	 * 
 	 * @param matricula
 	 *            matrícula do tutor
@@ -132,8 +132,8 @@ public class Facade {
 	}
 
 	/**
-	 * Método que retorna uma listagem dos Tutores cadastrados no sistema. Utiliza
-	 * o método {@link TutorController#listarTutores()} da classe
+	 * Método que retorna uma listagem dos Tutores cadastrados no sistema. Utiliza o
+	 * método {@link TutorController#listarTutores()} da classe
 	 * {@link TutorController}.
 	 * 
 	 * @return
@@ -143,8 +143,8 @@ public class Facade {
 	}
 
 	/**
-	 * Método que recebe os parametros necessários e realiza cadastro de horario
-	 * de um tutor
+	 * Método que recebe os parametros necessários e realiza cadastro de horario de
+	 * um tutor
 	 * 
 	 * @param email
 	 * @param horario
@@ -237,15 +237,36 @@ public class Facade {
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		return this.tutorController.getInfoAjuda(idAjuda, atributo);
 	}
-	
+
+	/**
+	 * Método que avalia um tutor por uma ajuda realizada, retornando sua nota de
+	 * avaliação final.
+	 * 
+	 * @param idAjuda
+	 *            identificador da ajuda de interesse.
+	 * @param nota
+	 *            nota de avaliação do tutor por sua ajuda.
+	 */
 	public String avaliarTutor(int idAjuda, int nota) {
 		return this.tutorController.avaliarTutor(idAjuda, nota);
 	}
-	
+
+	/**
+	 * Método que retorna a nota de avaliação de um tutor.
+	 * 
+	 * @param matriculaTutor
+	 *            matrícula do tutor de interesse.
+	 */
 	public String pegarNota(String matriculaTutor) {
 		return this.tutorController.pegarNota(matriculaTutor);
 	}
-	
+
+	/**
+	 * Método que retorna o nível de um tutor, de acordo com sua nota de avaliação.
+	 * 
+	 * @param matriculaTutor
+	 *            matrícula do tutor de interesse.
+	 */
 	public String pegarNivel(String matriculaTutor) {
 		return this.tutorController.pegarNivel(matriculaTutor);
 	}
