@@ -18,168 +18,301 @@ import java.util.Map;
  */
 public class TutorController {
 	private Map<String, Tutor> tutores;
-	private Map<String, String> emailTutores;
 	
+	private ArrayList<Ajuda>ajudas;
+	
+
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
 	 */
 	public TutorController() {
 		this.tutores = new HashMap<String, Tutor>();
-		this.emailTutores = new HashMap<String, String>();
+		this.ajudas = new ArrayList<Ajuda>();
+
 	}
-	
+
 	/**
-	 * Método que torna um aluno tutor. O Tutor irá armazenar o Aluno que virou tutor como parâmetro, por isso é passado o objeto aluno.
-	 * @param matricula matrícula do aluno
-	 * @param disciplina primeira disciplina da tutoria
-	 * @param proficiencia proeficiência na primeira disciplina 
-	 * @param aluno objeto de referência ao aluno que virou tutor
+	 * Método que torna um aluno tutor. O Tutor irá armazenar o Aluno que virou
+	 * tutor como parâmetro, por isso é passado o objeto aluno.
+	 * 
+	 * @param matricula
+	 *            matrícula do aluno
+	 * @param disciplina
+	 *            primeira disciplina da tutoria
+	 * @param proficiencia
+	 *            proeficiência na primeira disciplina
+	 * @param aluno
+	 *            objeto de referência ao aluno que virou tutor
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia, Aluno aluno) {
-		if(proficiencia < 1 || proficiencia > 5) {
+		if (proficiencia < 1 || proficiencia > 5) {
 			throw new IllegalArgumentException("Erro na definicao de papel: Proficiencia invalida");
 		}
-		if(!tutores.containsKey(matricula)) {
+		if (!tutores.containsKey(matricula)) {
 			this.tutores.put(matricula, new Tutor(disciplina, proficiencia, aluno));
-			this.emailTutores.put(aluno.getEmail(), matricula);
 		} else {
 			this.tutores.get(matricula).adicionarDisciplina(disciplina, proficiencia);
 		}
 	}
-	
+
 	/**
-	 * Método que obtém as informações do tutor com a respectiva matrícula informada e as retorna numa String.
-	 * @param matricula matrícula do tutor
+	 * Método que obtém as informações do tutor com a respectiva matrícula
+	 * informada e as retorna numa String.
+	 * 
+	 * @param matricula
+	 *            matrícula do tutor
 	 * @return String com as informações do Tutor
 	 */
 	public String recuperaTutor(String matricula) {
-		if(!tutores.containsKey(matricula)) {
+		if (!tutores.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro na busca por tutor: Tutor nao encontrado");
 		}
-		
+
 		return this.tutores.get(matricula).toString();
-	
+
 	}
 
 	/**
-	 * Método que gera uma listagem dos tutores cadastrados no sistema, ordenada em ordem alfabética com base no nome do tutor.
+	 * Método que gera uma listagem dos tutores cadastrados no sistema, ordenada em
+	 * ordem alfabética com base no nome do tutor.
+	 * 
 	 * @return String com a listagem ordenada dos tutores
 	 */
 	public String listarTutores() {
-		
+
 		List<Tutor> tutoresOrdenadosNome = new ArrayList<Tutor>();
-		
-		for(Tutor tutor : this.tutores.values()) {
+
+		for (Tutor tutor : this.tutores.values()) {
 			tutoresOrdenadosNome.add(tutor);
 		}
-		
+
 		Collections.sort(tutoresOrdenadosNome);
-		
+
 		String tutoresListados = "";
-		for(int i=0; i < tutoresOrdenadosNome.size(); i++) {
+		for (int i = 0; i < tutoresOrdenadosNome.size(); i++) {
 			tutoresListados += tutoresOrdenadosNome.get(i).toString() + ", ";
 		}
 		return tutoresListados.substring(0, tutoresListados.length() - 2);
-		
+
 	}
-	
+
 	/**
-	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro de horario de atendimento de um tutor.
-	 * @param email email do tutor
-	 * @param horario horário de atendimento
-	 * @param dia dia de atendimento
+	 * Método que recebe os parametros necessários, verifica a validade e realiza
+	 * cadastro de horario de um tutor
+	 * 
+	 * @param email
+	 * @param horario
+	 * @param dia
 	 */
 	public void cadastrarHorario(String email, String horario, String dia) {
 
-		if(email.trim().equals("") || email == null) {
+		if (email.trim().equals("") || email == null) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: email nao pode ser vazio ou em branco");
 		}
-		
-		if(horario.trim().equals("") || horario == null) {
+
+		if (horario.trim().equals("") || horario == null) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: horario nao pode ser vazio ou em branco");
 		}
-		
-		if(dia.trim().equals("") || dia == null) {
+
+		if (dia.trim().equals("") || horario == null) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: dia nao pode ser vazio ou em branco");
 		}
-		
-		if (!this.emailTutores.containsKey(email)) {
+
+		int ajuda = 0;
+		for (Tutor tutor : this.tutores.values()) {
+
+			if (tutor.getAluno().getEmail().equals(email)) {
+				tutor.cadastrarHorario(horario, dia);
+				ajuda += 1;
+				break;
+			}
+		}
+		if (ajuda == 0) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
 		}
-		
-		this.tutores.get(this.emailTutores.get(email)).cadastrarHorario(horario, dia);
-	}	
+	}
 
 	/**
-	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro do local de atendimento de um tutor.
-	 * @param email email do tutor
-	 * @param local local de atendimento
-	 */	
+	 * Método que recebe os parametros necessários, verifica a validade e realiza
+	 * cadastro do local de atendimento de um tutor
+	 * 
+	 * @param email
+	 * @param local
+	 */
+
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		
-		if(email.trim().equals("") || email == null) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: email nao pode ser vazio ou em branco");
+
+		if (email.trim().equals("") || email == null) {
+			throw new IllegalArgumentException(
+					"Erro no cadastrar local de atendimento: email nao pode ser vazio ou em branco");
 		}
-		
-		if(local.trim().equals("") || local == null) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: local nao pode ser vazio ou em branco");
+
+		if (local.trim().equals("") || local == null) {
+			throw new IllegalArgumentException(
+					"Erro no cadastrar local de atendimento: local nao pode ser vazio ou em branco");
 		}
-		
-		if (!this.emailTutores.containsKey(email)) {
+
+		int ajuda = 0;
+		for (Tutor tutor : this.tutores.values()) {
+			if (tutor.getAluno().getEmail().equals(email)) {
+				tutor.cadastrarLocalDeAtendimento(local);
+				ajuda += 1;
+				break;
+			}
+		}
+		if (ajuda == 0) {
 			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: tutor nao cadastrado");
 		}
-		
-		this.tutores.get(this.emailTutores.get(email)).cadastrarLocalDeAtendimento(local);
-	}
-	
-	/**
-	 * Método que verificia a disponibilidade de atendimento do tutor especificado por e-mail no horário e dia também especificados.
-	 * @param email email do tutor
-	 * @param horario horário de atendimento
-	 * @param dia dia de atendimento
-	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
-	 */
-	public boolean consultaHorario(String email, String horario, String dia) {
-		if(email.trim().equals("") || email == null) {
-			throw new IllegalArgumentException("Erro no cadastrar horario: email nao pode ser vazio ou em branco");
-		}
-		
-		if(horario.trim().equals("") || horario == null) {
-			throw new IllegalArgumentException("Erro no cadastrar horario: horario nao pode ser vazio ou em branco");
-		}
-		
-		if(dia.trim().equals("") || dia == null) {
-			throw new IllegalArgumentException("Erro no cadastrar horario: dia nao pode ser vazio ou em branco");
-		}
-		
-		if (!this.emailTutores.containsKey(email)) {
-			//throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
-			return false;
-		}
-		
-		return this.tutores.get(this.emailTutores.get(email)).consultaHorario(horario, dia); 
 	}
 
 	/**
-	 * Método que verificia a disponibilidade de atendimento do tutor especificado por e-mail no local também especificado.
-	 * @param email email do tutor
-	 * @param local local de atendimento
-	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
+	 * Método que verifica se um determinado tutor possui o horario passado para
+	 * verificação
+	 * 
+	 * @param email
+	 * @param horario
+	 * @param dia
+	 * @return
+	 */
+	public boolean consultaHorario(String email, String horario, String dia) {
+		for (Tutor tutor : this.tutores.values()) {
+			if (tutor.getAluno().getEmail().equals(email)) {
+				System.out.println(tutor.getHorarios().contains(horario + " - " + dia));
+				if (tutor.getHorarios().contains(horario + " - " + dia)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Método que verifica se um determinado tutor possui o local passado para
+	 * verificação
+	 * 
+	 * @param email
+	 * @param local
+	 * @return
 	 */
 	public boolean consultaLocal(String email, String local) {
-		if(email.trim().equals("") || email == null) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: email nao pode ser vazio ou em branco");
+		for (Tutor tutor : this.tutores.values()) {
+			if (tutor.getAluno().getEmail().equals(email)) {
+				if (tutor.getLocais().contains(local)) {
+					return true;
+				}
+			}
 		}
-		
-		if(local.trim().equals("") || local == null) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: local nao pode ser vazio ou em branco");
+		return false;
+	}
+
+	/*
+	 * Na ajuda presencial, o aluno indica a disciplina e dia que quer uma ajuda e o
+	 * local que tem interesse. Ao realizar um pedido no sistema, o sistema deve
+	 * associar um tutor a esse pedido. O tutor escolhido precisa ter profici�ncia
+	 * na disciplina e disponibilidade no local e no hor�rio/dia indicado.
+	 * 
+	 * Caso mais de um tutor esteja dispon�vel naquele dia o de maior pontua��o deve
+	 * ser retornado (ou o primeiro aluno cadastrado em caso de empate). O mesmo
+	 * tutor pode ser retornado para v�rios pedidos de ajuda diferentes.
+	 * 
+	 * 
+	 */
+
+	private Tutor getTutorAjudaPresencial(String disciplina, String horario, String dia, String localInteresse) {
+
+		Tutor tutorEscolhido = null;
+
+		for (Tutor tutor : tutores.values()) {
+
+			if (tutor.isDisponivel(horario, dia, localInteresse) && tutor.isProficiente(disciplina)) {
+				if (tutorEscolhido == null)
+					tutorEscolhido = tutor;
+				else {
+
+					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina))
+						tutorEscolhido = tutor;
+					else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
+						if (tutorEscolhido.getAluno().getPosicaoCadastro() > tutor.getAluno().getPosicaoCadastro())
+							tutorEscolhido = tutor;
+					}
+
+				}
+
+			}
 		}
-		
-		if (!this.emailTutores.containsKey(email)) {
-			//throw new IllegalArgumentException("Erro no cadastrar horario: tutor nao cadastrado");
-			return false;
+		return tutorEscolhido;
+	}
+
+	private Tutor getTutorAjudaOnline(String disciplina) {
+		Tutor tutorEscolhido = null;
+
+		for (Tutor tutor : tutores.values()) {
+			if (tutor.isProficiente(disciplina)) {
+				if (tutorEscolhido == null)
+					tutorEscolhido = tutor;
+				else {
+					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina))
+						tutorEscolhido = tutor;
+					else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
+						if (tutorEscolhido.getAluno().getPosicaoCadastro() > tutor.getAluno().getPosicaoCadastro())
+							tutorEscolhido = tutor;
+					}
+				}
+			}
+
 		}
+
+		return tutorEscolhido;
+	}
+
+	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia,
+			String localInteresse) {
+
+		AjudaPresencial ajuda = new AjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse,
+				getTutorAjudaPresencial(disciplina, horario, dia, localInteresse).getAluno().getMatricula());
+		ajudas.add(ajuda);
+		return ajudas.size();
+
+	}
+
+	/*
+	 * Na ajuda online, a intera��o ir� acontecer via email (ou hangouts) sem
+	 * necessidade de disponibilidade de hor�rio. H� necessidade de especificar
+	 * apenas a disciplina de interesse da ajuda. O tutor associado deve ter
+	 * profici�ncia nessa disciplina e ser aquele de maior pontua��o (ou o primeiro
+	 * cadastrado em caso de empate).
+	 */
+	public int pedirAjudaOnline(String matrAluno, String disciplina) {
+		AjudaOnline ajuda = new AjudaOnline(matrAluno, disciplina, getTutorAjudaOnline(disciplina).getAluno().getMatricula());
+		ajudas.add(ajuda);
+		return ajudas.size();
+
+	}
+	
+	public String pegarTutor(int idAjuda) {
+		return ajudas.get(idAjuda - 1). getMatriculaTutor();
+	}
+	
+	
+	
+	String getInfoAjuda(int idAjuda, String atributo) {
 		
-		return this.tutores.get(this.emailTutores.get(email)).consultaLocal(local);
+		Ajuda ajuda = ajudas.get(idAjuda - 1);
+		
+		
+		switch(atributo) {
+		case "horario":
+			return ((AjudaPresencial)ajuda).getHorario();
+		case "dia":
+			return ((AjudaPresencial)ajuda).getDia();
+		case "local":
+			return ((AjudaPresencial)ajuda).getLocalInteresse();
+		case "disciplina":
+			return ajuda.getDisciplina();
+			
+		default:
+			throw new IllegalArgumentException("Atributo Inv�lido");
+		
+		}
 	}
 }
