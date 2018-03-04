@@ -347,4 +347,38 @@ public class TutorController {
 
 		}
 	}
+	
+	public String avaliarTutor(int idAjuda, int nota) {
+		if(nota < 0) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser menor que 0");
+		}
+		if(nota > 5) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser maior que 5");
+		}
+		if(idAjuda < 0) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: id nao pode menor que zero ");
+		}
+		if(idAjuda > ajudas.size()) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: id nao encontrado ");
+		}
+		if(!ajudas.get(idAjuda - 1).foiAvaliado()) {
+			ajudas.get(idAjuda - 1).avaliaAjuda();
+			return tutores.get(ajudas.get(idAjuda - 1).getMatriculaTutor()).avaliarTutor(nota);
+		}else {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: Ajuda ja avaliada");
+		}
+	}
+	
+	public String pegarNota(String matriculaTutor) {
+		
+		return this.tutores.get(matriculaTutor).pegarNota();
+		
+	}
+
+	public String pegarNivel(String matriculaTutor) {
+		
+		return this.tutores.get(matriculaTutor).pegarNivel();
+		
+	}
+
 }

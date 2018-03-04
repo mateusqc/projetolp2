@@ -39,7 +39,7 @@ public class Facade {
 	 */
 	public static void main(String[] args) {
 		args = new String[] { "projeto.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
-				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt" };
+				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -236,6 +236,18 @@ public class Facade {
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		return this.tutorController.getInfoAjuda(idAjuda, atributo);
+	}
+	
+	public String avaliarTutor(int idAjuda, int nota) {
+		return this.tutorController.avaliarTutor(idAjuda, nota);
+	}
+	
+	public String pegarNota(String matriculaTutor) {
+		return this.tutorController.pegarNota(matriculaTutor);
+	}
+	
+	public String pegarNivel(String matriculaTutor) {
+		return this.tutorController.pegarNivel(matriculaTutor);
 	}
 
 }

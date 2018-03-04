@@ -32,7 +32,7 @@ public class Tutor implements Comparable<Tutor>{
 	/**
 	 * Lista de notas de avaliação do Tutor.
 	 */
-	private List<Double> notaAvaliacaoTutor;
+	private double notaAvaliacaoTutor;
 	
 	/**
 	 * Lista de locais cadastrados de um tutor
@@ -54,8 +54,7 @@ public class Tutor implements Comparable<Tutor>{
 		this.disciplinas.put(disciplina, proficiencia);
 		this.aluno = aluno;
 		this.dinheiro = 0;
-		this.notaAvaliacaoTutor = new ArrayList<Double>();
-		this.notaAvaliacaoTutor.add(4.0);
+		this.notaAvaliacaoTutor = 4.00;
 		this.locais = new ArrayList<String>();
 		this.horarios =  new ArrayList<String>();
 	}
@@ -73,23 +72,11 @@ public class Tutor implements Comparable<Tutor>{
 	}
 	
 	/**
-	 * Método que calcula a média das avaliações do Tutor.
-	 * @return double com o valor da média
-	 */
-	private double calcularMediaAvaliacao() {
-		double soma = 0;
-		for (double nota : this.notaAvaliacaoTutor) {
-			soma += nota;
-		}
-		return soma/this.notaAvaliacaoTutor.size();
-	}
-	
-	/**
 	 * Método que retorna a média de avaliações do Tutor.
 	 * @return Double com a média de avaliações do Tutor.
 	 */
-	public double pegarNota() {
-		return this.calcularMediaAvaliacao();
+	public String pegarNota() {
+		return String.format("%,.2f", this.notaAvaliacaoTutor);
 	}
 	/**
 	 * Método que adiciona um horario na lista de horarios de um tutor
@@ -187,6 +174,21 @@ public class Tutor implements Comparable<Tutor>{
 	
 	public int getPontuacao(String disciplina) {
 		return disciplinas.get(disciplina);
+	}
+
+	public String avaliarTutor(int nota) {
+		this.notaAvaliacaoTutor = ((this.notaAvaliacaoTutor * 5) + nota) / 6;
+		return String.format("%,.2f", notaAvaliacaoTutor);
+	}
+
+	public String pegarNivel() {
+		if(notaAvaliacaoTutor > 4.5) {
+			return "TOP";
+		}else if(notaAvaliacaoTutor > 3) {
+			return "Tutor";
+		}else {
+			return "Aprendiz";
+		}
 	}
 	
 }
