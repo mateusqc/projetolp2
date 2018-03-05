@@ -238,5 +238,16 @@ public class Tutor implements Comparable<Tutor> {
 			return "Aprendiz";
 		}
 	}
+	
+	public void recebeDinheiro(double totalTutor) {
+		this.dinheiro += totalTutor;
+	}
+	
+	public double totalDinheiroTutor() {
+		return  this.dinheiro;
+	}
+	public double getNotaAvaliacao() {
+		return this.notaAvaliacaoTutor;
+	}
 
 }

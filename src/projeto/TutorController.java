@@ -20,6 +20,8 @@ public class TutorController {
 	private Map<String, Tutor> tutores;
 
 	private ArrayList<Ajuda> ajudas;
+	
+	private double caixaSistema;
 
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
@@ -451,5 +453,41 @@ public class TutorController {
 		return this.tutores.get(matriculaTutor).pegarNivel();
 
 	}
+	
+	public void doar(String matriculaTutor, int totalCentavos) {
+		double taxa = calculaTaxa(matriculaTutor);
+		double dinheiroTutor = calculaValores(taxa, totalCentavos);
+		this.tutores.get(matriculaTutor).recebeDinheiro(dinheiroTutor);
+		this.caixaSistema += totalCentavos - dinheiroTutor;
+	}
+	
+	private double calculaValores(double taxa, int totalCentavos) {
+		double totalSistema = Math.floor((1 - taxa) * totalCentavos);
+		return (totalCentavos - totalSistema);
 
+	}
+
+	private double calculaTaxa(String matriculaTutor) {
+		double taxa = 0;
+		if (this.tutores.get(matriculaTutor).pegarNivel() == "TOP") {
+			taxa = ((this.tutores.get(matriculaTutor).getNotaAvaliacao() - 4.5) * 10) + 90;
+		} else if (this.tutores.get(matriculaTutor).pegarNivel() == "Tutor") {
+			taxa = 80; 
+		} else {
+			taxa = 40 - ((3 - this.tutores.get(matriculaTutor).getNotaAvaliacao()) * 10);
+		} 
+		return taxa/ 100;	
+	}
+	
+	public int totalDinheiroTutor(String emailTutor) { 
+		return (int) this.tutores.get(emailTutor).totalDinheiroTutor();
+	}
+
+	public int getCaixaSistema() {
+		return (int)caixaSistema;
+	}
+	
+	
+	
+	
 }

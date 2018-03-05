@@ -271,4 +271,15 @@ public class Facade {
 		return this.tutorController.pegarNivel(matriculaTutor);
 	}
 
+	public void doar(String matriculaTutor, int totalCentavos) {
+		this.tutorController.doar(matriculaTutor, totalCentavos);
+	}
+	
+	public int totalDinheiroTutor(String emailTutor) {
+		return this.tutorController.totalDinheiroTutor(emailTutor);
+	}
+		
+	public int totalDinheiroSistema() {
+		return this.tutorController.getCaixaSistema();
+	}
 }
