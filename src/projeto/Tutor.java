@@ -21,7 +21,7 @@ public class Tutor implements Comparable<Tutor> {
 	 */
 	private Aluno aluno;
 	/**
-	 * Mapa de Disciplinas do Tutor, onde a chave é o nome da disciplina e o valor é
+	 * Mapa de Disciplinas do Tutor, onde a chave  é o nome da disciplina e o valor é
 	 * a proficiência do tutor na dada disciplina.
 	 */
 	private Map<String, Integer> disciplinas;
