@@ -34,6 +34,8 @@ public class Aluno implements Comparable<Aluno>{
 	/**
 	 * E-mail do Aluno.
 	 */
+	
+	private int posicaoCadastro;
 	private String email;
 	/**
 	 * Lista de notas de avaliação do Aluno.
@@ -49,7 +51,7 @@ public class Aluno implements Comparable<Aluno>{
 	 * @param telefone telefone do aluno
 	 * @param email e-mail do aluno
 	 */
-	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
+	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email,int posicaoCadastro) {
 		this.verificaDados(nome, email);
 		
 		this.matricula = matricula;
@@ -61,6 +63,7 @@ public class Aluno implements Comparable<Aluno>{
 			this.telefone = telefone;
 		}
 		this.email = email;
+		this.posicaoCadastro = posicaoCadastro;
 		this.notaAvaliacao = new ArrayList<Double>();
 		this.notaAvaliacao.add(5.0);
 	}
@@ -143,6 +146,10 @@ public class Aluno implements Comparable<Aluno>{
 	 * matricula - nome - codigoCurso - telefone (caso tenha sido informado) - email
 	 * @return String com as informações do Aluno
 	 */
+	
+	public int getPosicaoCadastro() {
+		return this.posicaoCadastro;
+	}
 	@Override
 	public String toString() {
 		if(telefone == "") {
@@ -150,6 +157,10 @@ public class Aluno implements Comparable<Aluno>{
 		}
 		return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " +  this.telefone + " - " + this.email;
 
+	}
+	
+	public String getMatricula() {
+		return this.matricula;
 	}
 	
 	/**
