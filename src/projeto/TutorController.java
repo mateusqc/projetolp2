@@ -474,7 +474,7 @@ public class TutorController {
 	private double calculaValores(double taxa, int totalCentavos) {
 				
 		double totalSistema = Math.floor(((100 - ((taxa*100)))/100) * totalCentavos);
-	
+		System.out.println(((100 - ((taxa*100)))/100) * 100);
 		
 		return (totalCentavos - totalSistema);
 
@@ -491,7 +491,7 @@ public class TutorController {
 		} else if (this.tutores.get(matriculaTutor).pegarNivel() == "Tutor") {
 			taxa = 80; 
 		} else {
-			taxa = Math.ceil(40 - ((3 - this.tutores.get(matriculaTutor).getNotaAvaliacao()) * 10));
+			taxa = 40 - (Math.ceil(30 - (this.tutores.get(matriculaTutor).getNotaAvaliacao() * 10)));
 		} 
 		
 		taxa = taxa / 100;
@@ -507,13 +507,11 @@ public class TutorController {
 		if (emailTutor.trim().equals("") || emailTutor == null) {
 			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: emailTutor nao pode ser vazio ou nulo");
 		}
-	
-		for (Tutor tutor : this.tutores.values()) {
-			if (tutor.getAluno().getEmail().equals(emailTutor)) {
-				return (int) tutor.totalDinheiroTutor();
-			}
-		} throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: Tutor nao encontrado");
-	
+		
+		if (!this.emailTutores.containsKey(emailTutor)) {
+			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: Tutor nao encontrado");
+		}
+		return (int) this.tutores.get(this.emailTutores.get(emailTutor)).totalDinheiroTutor();     
 	}
 	
 	/**
@@ -523,8 +521,4 @@ public class TutorController {
 	public int getCaixaSistema() {
 		return (int)caixaSistema;
 	}
-	
-	
-	
-	
 }

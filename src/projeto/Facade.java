@@ -242,15 +242,31 @@ public class Facade {
 	public String pegarNivel(String matriculaTutor) {
 		return this.tutorController.pegarNivel(matriculaTutor);
 	}
+	
+	/**
+	 * Método que objetifica uma doação para um tutor e também o dinheiro a ser adicionado no sistema.
+	 * @param matriculaTutor
+	 * @param totalCentavos
+	 */
 
 	public void doar(String matriculaTutor, int totalCentavos) {
 		this.tutorController.doar(matriculaTutor, totalCentavos);
 	}
 	
+	/**
+	 * Método que retorna o inteiro correspondente ao total de dinheiro de um tutor passado como parametro.
+	 * @param emailTutor
+	 * @return
+	 */
+	
 	public int totalDinheiroTutor(String emailTutor) {
 		return this.tutorController.totalDinheiroTutor(emailTutor);
 	}
-		
+	
+	/**
+	 * Método que retorna o total de dinheiro disponivel no caixa do sistema.
+	 * @return
+	 */
 	public int totalDinheiroSistema() {
 		return this.tutorController.getCaixaSistema();
 	}
