@@ -1,8 +1,5 @@
 package projeto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Classe que representa um Aluno no sistema QUEM ME AJUDA.
  * 
@@ -38,7 +35,7 @@ public class Aluno implements Comparable<Aluno>{
 	/**
 	 * Lista de notas de avaliação do Aluno.
 	 */
-	private List<Double> notaAvaliacao;
+	private double notaAvaliacao;
 	/**
 	 * ID de cadastro do Aluno, ou seja, a ordem de cadastro em relação aos outros alunos.
 	 */
@@ -65,8 +62,7 @@ public class Aluno implements Comparable<Aluno>{
 			this.telefone = telefone;
 		}
 		this.email = email;
-		this.notaAvaliacao = new ArrayList<Double>();
-		this.notaAvaliacao.add(5.0);
+		this.notaAvaliacao = 5.0;
 		this.idCadastro = idCadastro;
 	}
 	
@@ -99,17 +95,7 @@ public class Aluno implements Comparable<Aluno>{
 		}
 	}
 	
-	/**
-	 * Método que calcula a média das avaliações do Aluno.
-	 * @return double com o valor da média
-	 */
-	private double calculaMediaAvaliacao() {
-		double soma = 0;
-		for (double nota : this.notaAvaliacao) {
-			soma += nota;
-		}
-		return soma/this.notaAvaliacao.size();
-	}
+	
 	
 	/**
 	 * Método que retorna o atributo Nome do Aluno.
@@ -140,7 +126,7 @@ public class Aluno implements Comparable<Aluno>{
 	 * @return double com o valor da média
 	 */
 	public double getNotaAvaliacao() {
-		return this.calculaMediaAvaliacao();
+		return this.notaAvaliacao;
 	}
 	
 	/**

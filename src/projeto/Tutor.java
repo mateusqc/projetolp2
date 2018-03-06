@@ -33,25 +33,20 @@ public class Tutor implements Comparable<Tutor> {
 	 * Lista de notas de avaliação do Tutor.
 	 */
 	private double notaAvaliacaoTutor;
-
 	/**
-	 * Lista de locais cadastrados de um tutor
+	 * Lista de locais cadastrados de um tutor.
 	 */
 	private List<String> locais;
 	/**
-	 * Lista de horários cadastrados de um tutor
+	 * Lista de dias e horários cadastrados de um tutor.
 	 */
-	private List<String> horarios;
+	private Map<String, List<String>> horariosDeAtendimento;
 
 	/**
 	 * Construtor de Tutor, inicializa os argumentos da classe.
-	 * 
-	 * @param disciplina
-	 *            nome da primeira disciplina do Tutor
-	 * @param proficiencia
-	 *            proficiência da primeira disciplina
-	 * @param aluno
-	 *            referência ao objeto aluno que se tornou Tutor
+	 * @param disciplina nome da primeira disciplina do Tutor
+	 * @param proficiencia proficiência da primeira disciplina
+	 * @param aluno referência ao objeto aluno que se tornou Tutor
 	 */
 	public Tutor(String disciplina, int proficiencia, Aluno aluno) {
 		this.disciplinas = new HashMap<String, Integer>();
@@ -60,16 +55,13 @@ public class Tutor implements Comparable<Tutor> {
 		this.dinheiro = 0;
 		this.notaAvaliacaoTutor = 4.00;
 		this.locais = new ArrayList<String>();
-		this.horarios = new ArrayList<String>();
+		this.horariosDeAtendimento =  new HashMap<String, List<String>>();
 	}
 
 	/**
 	 * Método que adiciona mais uma disciplina de tutoria ao Tutor.
-	 * 
-	 * @param disciplina
-	 *            nome da disciplina
-	 * @param proficiencia
-	 *            valor de proficiência do Tutor
+	 * @param disciplina nome da disciplina
+	 * @param proficiencia valor de proficiência do Tutor
 	 */
 	public void adicionarDisciplina(String disciplina, int proficiencia) {
 		if (this.disciplinas.containsKey(disciplina)) {
@@ -80,27 +72,29 @@ public class Tutor implements Comparable<Tutor> {
 
 	/**
 	 * Método que retorna a média de avaliações do Tutor.
-	 * 
-	 * @return Double com a média de avaliações do Tutor.
+	 * @return String com a média de avaliações do Tutor.
 	 */
 	public String pegarNota() {
 		return String.format("%,.2f", this.notaAvaliacaoTutor);
 	}
 
 	/**
-	 * Método que adiciona um horario na lista de horarios de um tutor
-	 * 
-	 * @param horario
-	 * @param dia
+	 * Método que adiciona um horario e/ou um dia na lista de horarios de atendimento de um tutor.
+	 * @param horario horário disponível do atendimento
+	 * @param dia dia disponível para atendimento
 	 */
 	public void cadastrarHorario(String horario, String dia) {
-		this.horarios.add(horario + " - " + dia);
+		if (this.horariosDeAtendimento.containsKey(dia)) {
+			this.horariosDeAtendimento.get(dia).add(horario);
+		} else {
+			this.horariosDeAtendimento.put(dia, new ArrayList<String>());
+			this.horariosDeAtendimento.get(dia).add(horario);
+		}
 	}
 
 	/**
-	 * Método que adiciona um local de atendimento na lista de locais de um tutor
-	 * 
-	 * @param local
+	 * Método que adiciona um local de atendimento na lista de locais de um tutor.
+	 * @param local local disponível para atendimento
 	 */
 	public void cadastrarLocalDeAtendimento(String local) {
 		this.locais.add(local);
@@ -111,28 +105,36 @@ public class Tutor implements Comparable<Tutor> {
 	}
 
 	/**
-	 * Método que retorna a lista de locais de um tutor
-	 * 
-	 * @return
+	 * Método que verificia a disponibilidade de atendimento do tutor no horário e dia especificado.
+	 * @param horario horário de atendimento
+	 * @param dia dia de atendimento
+	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
 	 */
-	public List<String> getLocais() {
-		return locais;
+	public boolean consultaHorario(String horario, String dia) {
+		if (this.horariosDeAtendimento.containsKey(dia)) {
+			if (this.horariosDeAtendimento.get(dia).contains(horario)) {
+				return true;
+			}
+		}
+		return false;
 	}
-
+	
 	/**
-	 * Método que retorna a lista de horarios de um tutor
-	 * 
-	 * @return
+	 * Método que verificia a disponibilidade de atendimento do tutor no local especificado.
+	 * @param local local de atendimento
+	 * @return Boolean representando a disponibilidade (true para disponível, false para indisponível) 
 	 */
-	public List<String> getHorarios() {
-		return horarios;
+	public boolean consultaLocal(String local) {
+		if (this.locais.contains(local)) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
 	 * Método hashCode com cálculo baseado no atributo que armazena um objeto aluno,
 	 * ou seja, {@link #aluno}.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -184,11 +186,8 @@ public class Tutor implements Comparable<Tutor> {
 	/**
 	 * Método que avalia se o tutor é proficiente em determinada disciplina.
 	 * 
-	 * @param disciplina
-	 *            a disciplina de checagem de proficiencia do tutor.
-	 * 
+	 * @param disciplina disciplina de checagem de proficiencia do tutor
 	 */
-
 	public boolean isProficiente(String disciplina) {
 		return disciplinas.containsKey(disciplina);
 	}
@@ -197,15 +196,19 @@ public class Tutor implements Comparable<Tutor> {
 	 * Método que avalia se o tutor está disponível para realizar um atendimento, de
 	 * acordo com o horaio, dia e local de interesse do atendimento.
 	 * 
-	 * @param horario
-	 *            horario de atendimento a ser checado.
-	 * @param dia
-	 *            dia de atendimento a ser checado.
-	 * @param localInteresse
-	 *            local de interesse para atendimento.
+	 * @param horario horario de atendimento a ser checado.
+	 * @param dia dia de atendimento a ser checado.
+	 * @param localInteresse local de interesse para atendimento.
 	 */
 	public boolean isDisponivel(String horario, String dia, String localInteresse) {
-		return horarios.contains(horario + " - " + dia) && locais.contains(localInteresse);
+		if (this.horariosDeAtendimento.containsKey(dia)) {
+			if (this.horariosDeAtendimento.get(dia).contains(horario)) {
+				if (this.locais.contains(localInteresse)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
