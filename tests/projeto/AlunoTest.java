@@ -27,7 +27,7 @@ public class AlunoTest {
 	 */
 	@Before
 	public void setUp(){
-		aluno = new Aluno("vitor", "00000", 12345, "3321-5489", "vitor@ccc.ufcg.edu.br");
+		aluno = new Aluno("vitor", "00000", 12345, "3321-5489", "vitor@ccc.ufcg.edu.br", 0);
 		
 	}
 	
@@ -36,7 +36,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testCriaAlunoPassandoTelefone() {
-		aluno = new Aluno("Lucas", "1000", 4000, "3335-1204", "lucas.brasil@ccc.ufcg.edu.br");
+		aluno = new Aluno("Lucas", "1000", 4000, "3335-1204", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assertEquals(aluno.toString(), "1000 - Lucas - 4000 - 3335-1204 - lucas.brasil@ccc.ufcg.edu.br");
 	}
 	
@@ -53,7 +53,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testCriaAlunoSemPassarTelefone() {
-		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assertEquals(aluno.toString(), "1000 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
 		
 	}
@@ -63,7 +63,7 @@ public class AlunoTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testCriaAlunoNomeVazio() {
-		aluno = new Aluno("  ", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		aluno = new Aluno("  ", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class AlunoTest {
 	@Test(expected=NullPointerException.class)
 	public void testCriaAlunoNomeNull() {
 		
-		aluno = new Aluno(null, "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		aluno = new Aluno(null, "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		
 	}
 	
@@ -81,7 +81,7 @@ public class AlunoTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testCriaAlunoComEmailSemArroba() {
-		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil.ccc.ufcg.edu.br");
+		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil.ccc.ufcg.edu.br", 0);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class AlunoTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testCriaAlunoComEmailInvalidoArrobaNoComeco() {
-		aluno = new Aluno("Lucas", "1000", 4000, "", "@lucas.brasil.ccc.ufcg.edu.br");	
+		aluno = new Aluno("Lucas", "1000", 4000, "", "@lucas.brasil.ccc.ufcg.edu.br", 0);	
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class AlunoTest {
 	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testCriaAlunoComEmailInvalidoArrobaNoFinal() {
-		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil.ccc.ufcg.edu.br@");
+		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil.ccc.ufcg.edu.br@", 0);
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosPositivo() {
-		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assert(aluno.compareTo(alunoDois) > 0);
 		
 	}
@@ -117,7 +117,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosNegativo() {
-		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assert(alunoDois.compareTo(aluno) < 0);
 	}
 	
@@ -126,7 +126,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testEqualsTrue() {
-		alunoDois = new Aluno("Lucas", "00000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Lucas", "00000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assertTrue("Alunos com matrículas iguais devem ser iguais", aluno.equals(alunoDois));
 	}
 	
@@ -135,7 +135,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testEqualsFalse() {
-		alunoDois = new Aluno("Lucas", "10000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Lucas", "10000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assertFalse("Alunos com matrículas iguais devem ser iguais", aluno.equals(alunoDois));
 	}
 	
@@ -144,7 +144,7 @@ public class AlunoTest {
 	 */
 	@Test
 	public void testHashCode() {
-		alunoDois = new Aluno("Lucas", "00000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Lucas", "00000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		assertTrue("Alunos iguais devem ter um mesmo valor de hashCode", aluno.hashCode() == alunoDois.hashCode());
 	}
 	

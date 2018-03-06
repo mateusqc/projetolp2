@@ -29,8 +29,8 @@ public class TutorControllerTest {
 	public void testInicializaTutorController() {
 		
 		tutorController = new TutorController();
-		alunoUm = new Aluno("Lucas", "2000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
-		alunoDois = new Aluno("Mateus", "3000", 4000, "", "mateus@ccc.ufcg.edu.br");
+		alunoUm = new Aluno("Lucas", "2000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
+		alunoDois = new Aluno("Mateus", "3000", 4000, "", "mateus@ccc.ufcg.edu.br", 1);
 		
 	}
 	
