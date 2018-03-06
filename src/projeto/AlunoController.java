@@ -21,14 +21,12 @@ public class AlunoController {
 	 * Mapa de Alunos, onde a chave é a matrícula do Aluno.
 	 */
 	private Map<String, Aluno> alunos;
-	private int posicaoUltimoAluno;
 	
 	/**
 	 * Construtor do controller, onde é inicializado o Mapa de Alunos.
 	 */
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
-		this.posicaoUltimoAluno = 0;
 	}
 		
 	/**
@@ -44,7 +42,7 @@ public class AlunoController {
 		if(alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Aluno de mesma matricula ja cadastrado");
 		}
-		alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email,posicaoUltimoAluno++));
+		alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email, this.alunos.size() + 1));
 	}
 	
 	/**
@@ -145,9 +143,9 @@ public class AlunoController {
 	 * @param matricula matrícula do Aluno
 	 * @return Objeto do tipo {@link Aluno} referente à matrícula informada
 	 */
-	public Aluno tornarTutor(String matricula) {
+	public Aluno getAluno(String matricula) {
 		if(!this.alunos.containsKey(matricula)) {
-			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
+			throw new IllegalArgumentException("Aluno nao encontrado");
 		}
 		return this.alunos.get(matricula);
 	}
