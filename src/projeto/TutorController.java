@@ -1,5 +1,6 @@
 package projeto;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ public class TutorController {
 	private Map<String, Tutor> tutores;
 
 	private ArrayList<Ajuda> ajudas;
+	
+	private double caixaSistema;
 
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
@@ -451,5 +454,86 @@ public class TutorController {
 		return this.tutores.get(matriculaTutor).pegarNivel();
 
 	}
+	/**
+	 * Método que objetifica uma doação para um tutor e também o dinheiro a ser adicionado no sistema.
+	 * @param matriculaTutor
+	 * @param totalCentavos
+	 */
+	public void doar(String matriculaTutor, int totalCentavos) {
+		
+		if (matriculaTutor.trim().equals("") || matriculaTutor == null) {
+			throw new IllegalArgumentException("Erro na doacao para tutor: matriculaTutor nao pode ser vazio ou nulo");
+		}
+		if (totalCentavos < 0) {
+			throw new IllegalArgumentException("Erro na doacao para tutor: totalCentavos nao pode ser menor que zero");
+		}
+		if (!this.tutores.containsKey(matriculaTutor)) {
+			throw new IllegalArgumentException("Erro na doacao para tutor: Tutor nao encontrado");
+		}
+			
+		double taxa = calculaTaxa(matriculaTutor);
+		double dinheiroTutor = calculaValores(taxa, totalCentavos);
+		this.tutores.get(matriculaTutor).recebeDinheiro(dinheiroTutor);
+		this.caixaSistema += totalCentavos - dinheiroTutor;
+	}
+	/**
+	 * Método que calcula o valor a ser recebido pelo tutor.
+	 * @param taxa
+	 * @param totalCentavos
+	 * @return
+	 */
+	private double calculaValores(double taxa, int totalCentavos) {
+		double totalSistema = Math.floor((1 - taxa) * totalCentavos);
+	
 
+		return (totalCentavos - totalSistema);
+
+	}
+	/**
+	 * Método que calcula a taxa a ser usada para definir os valores recebidos pelo tutor e pelo sistema
+	 * @param matriculaTutor
+	 * @return
+	 */
+	private double calculaTaxa(String matriculaTutor) {
+		double taxa = 0;
+		if (this.tutores.get(matriculaTutor).pegarNivel() == "TOP") {
+			taxa = Math.floor(((this.tutores.get(matriculaTutor).getNotaAvaliacao() - 4.5) * 10) + 90);
+		} else if (this.tutores.get(matriculaTutor).pegarNivel() == "Tutor") {
+			taxa = 80; 
+		} else {
+			taxa = Math.ceil(40 - ((3 - this.tutores.get(matriculaTutor).getNotaAvaliacao()) * 10));
+		} 
+		taxa = taxa / 100;
+		new DecimalFormat("0.00").format(taxa);
+		return taxa;	
+	}
+	/**
+	 * Método que retorna o inteiro correspondente ao total de dinheiro de um tutor.
+	 * @param emailTutor
+	 * @return
+	 */
+	public int totalDinheiroTutor(String emailTutor) { 
+		if (emailTutor.trim().equals("") || emailTutor == null) {
+			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: emailTutor nao pode ser vazio ou nulo");
+		}
+	
+		for (Tutor tutor : this.tutores.values()) {
+			if (tutor.getAluno().getEmail().equals(emailTutor)) {
+				return (int) tutor.totalDinheiroTutor();
+			}
+		} throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: Tutor nao encontrado");
+	
+	}
+	
+	/**
+	 * Método que retorna o valor inteiro do caixa do sistema de tutores.
+	 * @return
+	 */
+	public int getCaixaSistema() {
+		return (int)caixaSistema;
+	}
+	
+	
+	
+	
 }

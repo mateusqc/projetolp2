@@ -21,7 +21,7 @@ public class Tutor implements Comparable<Tutor> {
 	 */
 	private Aluno aluno;
 	/**
-	 * Mapa de Disciplinas do Tutor, onde a chave é o nome da disciplina e o valor é
+	 * Mapa de Disciplinas do Tutor, onde a chave  é o nome da disciplina e o valor é
 	 * a proficiência do tutor na dada disciplina.
 	 */
 	private Map<String, Integer> disciplinas;
@@ -237,6 +237,27 @@ public class Tutor implements Comparable<Tutor> {
 		} else {
 			return "Aprendiz";
 		}
+	}
+	/**
+	 * Método que recebe a quantidade de dinheiro a ser fornecido a um tutor.
+	 * @param totalTutor
+	 */
+	public void recebeDinheiro(double totalTutor) {
+		this.dinheiro += totalTutor;
+	}
+	/**
+	 * Método que retorna o total de dinheiro pertencente a um tutor
+	 * @return
+	 */
+	public double totalDinheiroTutor() {
+		return  this.dinheiro;
+	}
+	/**
+	 * Método que retorna a nota de avaliacao de um tutor
+	 * @return
+	 */
+	public double getNotaAvaliacao() {
+		return this.notaAvaliacaoTutor;
 	}
 
 }
