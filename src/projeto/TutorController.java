@@ -483,9 +483,10 @@ public class TutorController {
 	 * @return
 	 */
 	private double calculaValores(double taxa, int totalCentavos) {
-		double totalSistema = Math.floor((1 - taxa) * totalCentavos);
+				
+		double totalSistema = Math.floor(((100 - ((taxa*100)))/100) * totalCentavos);
 	
-
+		
 		return (totalCentavos - totalSistema);
 
 	}
@@ -503,6 +504,7 @@ public class TutorController {
 		} else {
 			taxa = Math.ceil(40 - ((3 - this.tutores.get(matriculaTutor).getNotaAvaliacao()) * 10));
 		} 
+		
 		taxa = taxa / 100;
 		new DecimalFormat("0.00").format(taxa);
 		return taxa;	
