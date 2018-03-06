@@ -238,14 +238,24 @@ public class Tutor implements Comparable<Tutor> {
 			return "Aprendiz";
 		}
 	}
-	
+	/**
+	 * Método que recebe a quantidade de dinheiro a ser fornecido a um tutor.
+	 * @param totalTutor
+	 */
 	public void recebeDinheiro(double totalTutor) {
 		this.dinheiro += totalTutor;
 	}
-	
+	/**
+	 * Método que retorna o total de dinheiro pertencente a um tutor
+	 * @return
+	 */
 	public double totalDinheiroTutor() {
 		return  this.dinheiro;
 	}
+	/**
+	 * Método que retorna a nota de avaliacao de um tutor
+	 * @return
+	 */
 	public double getNotaAvaliacao() {
 		return this.notaAvaliacaoTutor;
 	}
