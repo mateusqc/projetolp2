@@ -9,7 +9,7 @@ public class AjudaOnline extends Ajuda {
 
 	@Override
 	public String pegarTutor() {
-		return "Tutor - " + this.matriculaTutor + ", disciplina- " + this.disciplina;
+		return "Tutor - " + this.matriculaTutor + ", disciplina - " + this.disciplina;
 	}
 
 }

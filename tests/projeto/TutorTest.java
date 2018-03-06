@@ -36,7 +36,7 @@ public class TutorTest {
 	 */
 	@Before
 	public void testCriaTutor() {
-		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		aluno = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
 		tutorUm = new Tutor("Programação 2", 4, aluno);
 		assertEquals(tutorUm.toString(), "1000 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
 	}
@@ -67,7 +67,7 @@ public class TutorTest {
 	@Test
 	public void testPegarNotaDeAvaliacaoDoTutor() {
 		
-		assert(tutorUm.pegarNota() == 4);
+		assert(tutorUm.getNotaAvaliacao() == 4);
 		
 	}
 	
@@ -94,7 +94,7 @@ public class TutorTest {
 	 */
 	@Test
 	public void testEqualsFalse() {
-		alunoDois = new Aluno("Mateus", "2000", 5000, "", "mateus@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Mateus", "2000", 5000, "", "mateus@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Teoria dos Grafos", 5, alunoDois);
 		assertFalse("Tutores que são alunos que possuem matriculas diferentes devem ser diferentes", tutorUm.equals(tutorDois));
 		
@@ -106,7 +106,7 @@ public class TutorTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosPositivo() {
-		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
 		assert(tutorUm.compareTo(tutorDois) > 0);
 		
@@ -118,7 +118,7 @@ public class TutorTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosNegativo() {
-		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br");
+		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
 		assert(tutorDois.compareTo(tutorUm) < 0);
 	}
