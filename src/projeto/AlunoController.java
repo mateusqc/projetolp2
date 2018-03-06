@@ -21,7 +21,6 @@ public class AlunoController {
 	 * Mapa de Alunos, onde a chave é a matrícula do Aluno.
 	 */
 	private Map<String, Aluno> alunos;
-	private int posicaoUltimoAluno;
 	
 	/**
 	 * Construtor do controller, onde é inicializado o Mapa de Alunos.
@@ -44,7 +43,7 @@ public class AlunoController {
 		if(alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException("Erro no cadastro de aluno: Aluno de mesma matricula ja cadastrado");
 		}
-		alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email,posicaoUltimoAluno++));
+		alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email, this.alunos.size() + 1));
 	}
 	
 	/**
