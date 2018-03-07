@@ -187,6 +187,7 @@ public class Tutor implements Comparable<Tutor> {
 	 * Método que avalia se o tutor é proficiente em determinada disciplina.
 	 * 
 	 * @param disciplina disciplina de checagem de proficiencia do tutor
+	 * @return Boolean informando se o tutor é proficiente ou não
 	 */
 	public boolean isProficiente(String disciplina) {
 		return disciplinas.containsKey(disciplina);
@@ -199,6 +200,7 @@ public class Tutor implements Comparable<Tutor> {
 	 * @param horario horario de atendimento a ser checado.
 	 * @param dia dia de atendimento a ser checado.
 	 * @param localInteresse local de interesse para atendimento.
+	 * @return Boolean informando se o tutor está disponível no horario, dia e local solicitado
 	 */
 	public boolean isDisponivel(String horario, String dia, String localInteresse) {
 		if (this.horariosDeAtendimento.containsKey(dia)) {
@@ -212,9 +214,10 @@ public class Tutor implements Comparable<Tutor> {
 	}
 
 	/**
-	 * Método que recupera a nota de proficiencia do tutor em determinada disciplina
+	 * Método que recupera a nota de proficiência do tutor em determinada disciplina
 	 * passada como parâmetro.
 	 * @param disciplina disciplina de interesse da nota de proficiencia do tutor.
+	 * @return Inteiro com a proficiência do tutor na disciplina
 	 */
 	public int getPontuacao(String disciplina) {
 		return disciplinas.get(disciplina);

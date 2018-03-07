@@ -87,9 +87,9 @@ public class Facade {
 	/**
 	 * Método que torna um Aluno em Tutor. Utiliza os métodos {@link TutorController#tornarTutor(String, String, int, Aluno)} da classe {@link TutorController} e 
 	 * {@link AlunoController#tornarTutor(String)} da classe {@link AlunoController}.
-	 * @param matricula
-	 * @param disciplina
-	 * @param proficiencia
+	 * @param matricula matrícula do aluno
+	 * @param disciplina disciplina de tutoria
+	 * @param proficiencia proficiência do aluno na disciplina
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
 		try {
@@ -123,76 +123,82 @@ public class Facade {
 	}
 	
 	/**
-	 * Método que recebe os parametros necessários e realiza cadastro de horario de um tutor
-	 * @param email
-	 * @param horario
-	 * @param dia
+	 * Méotodo que cadastra um horário de atendimento de um Tutor cadastrado no sistema. Utiliza o método {@link TutorController#cadastrarHorario(String, String, String)}
+	 * da classe {@link TutorController}.
+	 * @param email e-mail do tutor
+	 * @param horario horário disponível do tutor
+	 * @param dia dia disponível para o tutor
 	 */
 	public void cadastrarHorario(String email, String horario, String dia) {
 		this.tutorController.cadastrarHorario(email, horario, dia);
 	}
 	
 	/**
-	 * Método que recebe os parametros necessários e realiza cadastro do local de atendimento de um tutor
-	 * @param email
-	 * @param local
+	 * Méotodo que cadastra um local de atendimento de um Tutor cadastrado no sistema. Utiliza o método {@link TutorController#cadastrarLocalDeAtendimento(String, String)}
+	 * da classe {@link TutorController}.
+	 * @param email e-mail do tutor
+	 * @param local local disponível para o tutor
 	 */
 	public void cadastrarLocalDeAtendimento(String email, String local) {
 		this.tutorController.cadastrarLocalDeAtendimento(email, local);
 	}
 	
 	/**
-	 * Método que verifica se um determinado tutor possui o horario passado para verificação
-	 * @param email
-	 * @param horario
-	 * @param dia
-	 * @return
+	 * Método que verifica se o Tutor tem disponibilidade no horário e dias passados como argumento. Utiliza o método {@link TutorController#consultaHorario(String, String, String)}
+	 * da classe {@link TutorController}.
+	 * @param email e-mail do tutor
+	 * @param horario horário de atendimento
+	 * @param dia dia de atendimento
+	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
-	public boolean consultaHorario(String email, String horario,String dia) {
+	public boolean consultaHorario(String email, String horario, String dia) {
 		return this.tutorController.consultaHorario(email, horario, dia);
 	}
 	
 	/**
-	 * Método que verifica se um determinado tutor possui o local passado para verificação
-	 * @param email
-	 * @param local
-	 * @return
+	 * Método que verifica se o Tutor tem disponibilidade no local passado como argumento. Utiliza o método {@link TutorController#consultaLocal(String, String)}
+	 * da classe {@link TutorController}.
+	 * @param email e-mail do tutor
+	 * @param local local de atendimento
+	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
 	public boolean consultaLocal(String email, String local) {
 		return this.tutorController.consultaLocal(email, local);
 	}
 
 	/**
-	 * metodo em que pede ajuda presencial ao tutor
+	 * Método de cadastro de uma ajuda presencial. Utiliza o método {@link TutorController#pedirAjudaPresencial(String, String, String, String, String)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param matrAluno
-	 * @param disciplina
-	 * @param horario
-	 * @param dia
-	 * @param localInteresse
-	 * @return
+	 * @param matrAluno matrícula do aluno solicitante
+	 * @param disciplina disciplina da ajuda
+	 * @param horario horário solicitado
+	 * @param dia dia solicitado
+	 * @param localInteresse local solicitado
+	 * @return Inteiro que representa o ID da ajuda
 	 */
-	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia,
-			String localInteresse) {
+	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
 		return this.tutorController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
 	}
 
 	/**
-	 * metodo em que pede ajuda online ao tutor
+	 * Método de cadastro de uma ajuda presencial. Utiliza o método {@link TutorController#pedirAjudaOnline(String, String)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param matrAluno
-	 * @param disciplina
-	 * @return
+	 * @param matrAluno matrícula do aluno solicitante
+	 * @param disciplina disciplina da ajuda
+	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		return this.tutorController.pedirAjudaOnline(matrAluno, disciplina);
 	}
 
 	/**
-	 * metodo em que pega o tutor
+	 * Método que obtem as informações de uma Ajuda e do Tutor responsável. Utiliza o método {@link TutorController#pegarTutor(int)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param idAjuda
-	 * @return
+	 * @param idAjuda ID da ajuda
+	 * @return String com as informações do tutor e da ajuda
 	 */
 	public String pegarTutor(int idAjuda) {
 		return this.tutorController.pegarTutor(idAjuda);
@@ -200,44 +206,46 @@ public class Facade {
 	}
 
 	/**
-	 * metodo em que pega a informacao do aluno
+	 * Método que obtem as informações dos atributos de uma Ajuda. Utiliza o método {@link TutorController#getInfoAjuda(int, String)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param idAjuda
-	 * @param atributo
-	 * @return
+	 * @param idAjuda ID da ajuda
+	 * @param atributo atributo desejado
+	 * @return String com o atributo desejado
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		return this.tutorController.getInfoAjuda(idAjuda, atributo);
 	}
 
 	/**
-	 * Método que avalia um tutor por uma ajuda realizada, retornando sua nota de
-	 * avaliação final.
+	 * Método que avalia um tutor por uma ajuda realizada, retornando sua nota de avaliação final. Utiliza o método {@link TutorController#avaliarTutor(int, int)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param idAjuda
-	 *            identificador da ajuda de interesse.
-	 * @param nota
-	 *            nota de avaliação do tutor por sua ajuda.
+	 * @param idAjuda identificador da ajuda de interesse.
+	 * @param nota nota de avaliação do tutor por sua ajuda.
+	 * @return String com a nova média do tutor.
 	 */
 	public String avaliarTutor(int idAjuda, int nota) {
 		return this.tutorController.avaliarTutor(idAjuda, nota);
 	}
 
 	/**
-	 * Método que retorna a nota de avaliação de um tutor.
+	 * Método que retorna a nota de avaliação de um tutor. Utiliza o método {@link TutorController#pegarNota(String)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param matriculaTutor
-	 *            matrícula do tutor de interesse.
+	 * @param matriculaTutor matrícula do tutor de interesse.
+	 * @return String com a nota de avaliação do tutor
 	 */
 	public String pegarNota(String matriculaTutor) {
 		return this.tutorController.pegarNota(matriculaTutor);
 	}
 
 	/**
-	 * Método que retorna o nível de um tutor, de acordo com sua nota de avaliação.
+	 * Método que retorna o nível de um tutor, de acordo com sua nota de avaliação. Utiliza o método {@link TutorController#pegarNivel(String)}
+	 * da classe {@link TutorController}.
 	 * 
-	 * @param matriculaTutor
-	 *            matrícula do tutor de interesse.
+	 * @param matriculaTutor matrícula do tutor de interesse.
+	 * @return String com o nível do tutor
 	 */
 	public String pegarNivel(String matriculaTutor) {
 		return this.tutorController.pegarNivel(matriculaTutor);

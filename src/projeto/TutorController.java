@@ -26,7 +26,7 @@ public class TutorController {
 	 * Mapa dos e-mails dos Tutores cadastrados para suas matrículas.
 	 */
 	private Map<String, String> emailTutores;
-
+	
 	private ArrayList<Ajuda> ajudas;
 	
 	private double caixaSistema;
@@ -197,38 +197,31 @@ public class TutorController {
 	}
 
 	/**
-	 * Na ajuda presencial, o aluno indica a disciplina e dia que quer uma ajuda e o
-	 * local que tem interesse. Ao realizar um pedido no sistema, o sistema deve
-	 * associar um tutor a esse pedido. O tutor escolhido precisa ter proficiência
-	 * na disciplina e disponibilidade no local e no horário/dia indicado.
-	 * 
-	 * Caso mais de um tutor esteja disponível naquele dia o de maior pontuação deve
-	 * ser retornado (ou o primeiro aluno cadastrado em caso de empate). O mesmo
-	 * tutor pode ser retornado para vários pedidos de ajuda diferentes.
-	 * 
-	 * 
+	 * Método que seleciona o Tutor adequado para a ajuda solicitada. A ordem de prioridade dentre os tutores disponíveis é por proficiência,
+	 * pontuação e por último ordem de cadastro.
+	 * @param disciplina disciplina da ajuda solicitada
+	 * @param horario horário desejado para a ajuda
+	 * @param dia dia desejado para a ajuda
+	 * @param localInteresse local de interesse para a ajuda
+	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
 	 */
-
 	private Tutor getTutorAjudaPresencial(String disciplina, String horario, String dia, String localInteresse) {
 
 		Tutor tutorEscolhido = null;
 
 		for (Tutor tutor : tutores.values()) {
-
 			if (tutor.isDisponivel(horario, dia, localInteresse) && tutor.isProficiente(disciplina)) {
-				if (tutorEscolhido == null)
+				if (tutorEscolhido == null) {
 					tutorEscolhido = tutor;
-				else {
-
-					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina))
+				} else {
+					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina)) {
 						tutorEscolhido = tutor;
-					else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
-						if (tutorEscolhido.getAluno().getIdCadastro() > tutor.getAluno().getIdCadastro())
+					} else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
+						if (tutorEscolhido.getAluno().getIdCadastro() > tutor.getAluno().getIdCadastro()) {
 							tutorEscolhido = tutor;
+						}
 					}
-
 				}
-
 			}
 		}
 		return tutorEscolhido;
@@ -246,19 +239,26 @@ public class TutorController {
 	 * 
 	 * 
 	 */
+	/**
+	 * Método que seleciona o tutor adequado para a ajuda solicitada. A ordem de prioridade dentre os tutores disponíveis é por proficiência,
+	 * pontuação e por último ordem de cadastro. 
+	 * @param disciplina disciplina da ajuda solicitada
+	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
+	 */
 	private Tutor getTutorAjudaOnline(String disciplina) {
 		Tutor tutorEscolhido = null;
 
 		for (Tutor tutor : tutores.values()) {
 			if (tutor.isProficiente(disciplina)) {
-				if (tutorEscolhido == null)
+				if (tutorEscolhido == null) {
 					tutorEscolhido = tutor;
-				else {
-					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina))
+				} else {
+					if (tutorEscolhido.getPontuacao(disciplina) < tutor.getPontuacao(disciplina)) {
 						tutorEscolhido = tutor;
-					else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
-						if (tutorEscolhido.getAluno().getIdCadastro() > tutor.getAluno().getIdCadastro())
+					} else if (tutorEscolhido.getPontuacao(disciplina) == tutor.getPontuacao(disciplina)) {
+						if (tutorEscolhido.getAluno().getIdCadastro() > tutor.getAluno().getIdCadastro()) {
 							tutorEscolhido = tutor;
+						}
 					}
 				}
 			}
@@ -271,53 +271,40 @@ public class TutorController {
 	/**
 	 * Método que realiza o cadastro de uma ajuda presencial.
 	 * 
-	 * @param matrAluno
-	 *            matricula do aluno requisitando a ajuda.
-	 * @param disciplina
-	 *            disciplina de desejo de ajuda.
-	 * @param horario
-	 *            horario de atendimento para a ajuda.
-	 * @param dia
-	 *            dia de atendimento para a ajuda.
-	 * @param localInteresse
-	 *            local de atendimento da ajuda.
+	 * @param matrAluno matricula do aluno requisitando a ajuda
+	 * @param disciplina disciplina de desejo de ajuda
+	 * @param horario horario de atendimento para a ajuda
+	 * @param dia dia de atendimento para a ajuda
+	 * @param localInteresse local de atendimento da ajuda
+	 * @return Inteiro com o ID da ajuda
 	 */
-	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia,
-			String localInteresse) {
+	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
 		if (matrAluno.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda presencial: matricula de aluno nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: matricula de aluno nao pode ser vazio ou em branco");
 		}
 		if (disciplina.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda presencial: disciplina nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: disciplina nao pode ser vazio ou em branco");
 		}
 		if (horario.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda presencial: horario nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: horario nao pode ser vazio ou em branco");
 		}
 		if (dia.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda presencial: dia nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: dia nao pode ser vazio ou em branco");
 		}
 		if (localInteresse.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda presencial: local de interesse nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: local de interesse nao pode ser vazio ou em branco");
 		}
-		AjudaPresencial ajuda = new AjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse,
-				getTutorAjudaPresencial(disciplina, horario, dia, localInteresse).getAluno().getMatricula());
-		ajudas.add(ajuda);
+		ajudas.add(new AjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse, getTutorAjudaPresencial(disciplina, horario, dia, localInteresse).getAluno().getMatricula()));
 		return ajudas.size();
 
 	}
 
 	/**
-	 * Método que realiza o cadastro de uma ajuda presencial.
+	 * Método que realiza o cadastro de uma ajuda oline.
 	 * 
-	 * @param matrAluno
-	 *            matricula do aluno requisitando a ajuda.
-	 * @param disciplina
-	 *            disciplina de desejo de ajuda.
+	 * @param matrAluno matricula do aluno requisitando a ajuda.
+	 * @param disciplina disciplina de desejo de ajuda.
+	 * @return Inteiro com o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		if (matrAluno.trim().equals("")) {
@@ -336,11 +323,10 @@ public class TutorController {
 	}
 
 	/**
-	 * Método que retorna o tutor responsável por determinada ajuda, identificada
-	 * por seu id.
+	 * Método que retorna o tutor responsável por determinada ajuda, identificada por seu id.
 	 * 
-	 * @param idAjuda
-	 *            identificador da ajuda de interesse.
+	 * @param idAjuda identificador da ajuda de interesse.
+	 * @return String com as informações da ajuda especificada e do tutor referente a mesma
 	 */
 	public String pegarTutor(int idAjuda) {
 		if (idAjuda < 0) {
@@ -355,10 +341,9 @@ public class TutorController {
 	/**
 	 * Método que recupera determinada informação da ajuda.
 	 * 
-	 * @param idAjuda
-	 *            o identificador da ajuda de interesse.
-	 * @param atributo
-	 *            o atributo que se quer recuperar da ajuda.
+	 * @param idAjuda o identificador da ajuda de interesse.
+	 * @param atributo o atributo que se quer recuperar da ajuda.
+	 * @return String com o atributo desejado
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		if (idAjuda < 0) {
@@ -372,31 +357,14 @@ public class TutorController {
 					"Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
 		}
 
-		Ajuda ajuda = ajudas.get(idAjuda - 1);
-
-		switch (atributo) {
-		case "horario":
-			return ((AjudaPresencial) ajuda).getHorario();
-		case "dia":
-			return ((AjudaPresencial) ajuda).getDia();
-		case "localInteresse":
-			return ((AjudaPresencial) ajuda).getLocalInteresse();
-		case "disciplina":
-			return ajuda.getDisciplina();
-
-		default:
-			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : atributo nao encontrado");
-
-		}
+		return this.ajudas.get(idAjuda - 1).getInfoAjuda(atributo);
 	}
 
 	/**
 	 * Método que avalia um tutor por determinada ajuda realizada.
 	 * 
-	 * @param idAjuda
-	 *            o identificador da ajuda de interesse.
-	 * @param nota
-	 *            nota de avaliação do tutor por sua ajuda.
+	 * @param idAjuda identificador da ajuda de interesse.
+	 * @param nota nota de avaliação do tutor por sua ajuda.
 	 */
 	public String avaliarTutor(int idAjuda, int nota) {
 		if (nota < 0) {
@@ -422,8 +390,7 @@ public class TutorController {
 	/**
 	 * Método que retorna a nota de avaliação de um tutor.
 	 * 
-	 * @param matriculaTutor
-	 *            matrícula do tutor de interesse.
+	 * @param matriculaTutor matrícula do tutor de interesse.
 	 */
 	public String pegarNota(String matriculaTutor) {
 
