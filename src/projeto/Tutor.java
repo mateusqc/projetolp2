@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Tutor implements Comparable<Tutor> {
+public class Tutor {
 	/**
 	 * Objeto Aluno ao qual o Tutor se refere.
 	 */
@@ -172,15 +172,6 @@ public class Tutor implements Comparable<Tutor> {
 	public String toString() {
 		return this.aluno.toString();
 
-	}
-
-	/**
-	 * Método que compara dois tutores e retorna qual dos dois é o maior. A
-	 * comparação utiliza como base o método {@link Aluno#compareTo(Aluno)} do
-	 * atributo {@link #aluno}.
-	 */
-	public int compareTo(Tutor o) {
-		return this.aluno.compareTo(o.aluno);
 	}
 
 	/**

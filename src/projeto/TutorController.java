@@ -31,6 +31,9 @@ public class TutorController {
 	
 	private double caixaSistema;
 
+	private List<Tutor> tutorSort;
+	
+	private int aux;
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
 	 */
@@ -38,7 +41,8 @@ public class TutorController {
 		this.tutores = new HashMap<String, Tutor>();
 		this.emailTutores = new HashMap<String, String>();
 		this.ajudas = new ArrayList<Ajuda>();
-
+		this.tutorSort = new ArrayList<Tutor>();
+		this.aux = 0;
 	}
 
 	/**
@@ -79,7 +83,25 @@ public class TutorController {
 	 * @return String com a listagem ordenada dos tutores
 	 */
 	public String listarTutores() {
+		if (this.aux == 0) {
+		tutorSort.addAll(tutores.values());
+		Collections.sort(tutorSort, new comparaNomeTutor());
 		
+		
+		} 		
+		
+		String tutoresListados = "";
+		for(int i=0; i < this.tutorSort.size(); i++) {
+			tutoresListados += this.tutorSort.get(i).toString();
+			if(i != this.tutorSort.size() - 1) {
+				tutoresListados += ", ";
+			}
+		}
+		return tutoresListados.substring(0, tutoresListados.length());
+	}
+		
+		
+		/*
 		List<Tutor> tutoresOrdenadosNome = new ArrayList<Tutor>();
 		
 		for(Tutor tutor : this.tutores.values()) {
@@ -91,10 +113,7 @@ public class TutorController {
 		String tutoresListados = "";
 		for(int i=0; i < tutoresOrdenadosNome.size(); i++) {
 			tutoresListados += tutoresOrdenadosNome.get(i).toString() + ", ";
-		}
-		return tutoresListados.substring(0, tutoresListados.length() - 2);
-		
-	}
+		}	*/	
 
 	/**
 	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro de horario de atendimento de um tutor.
@@ -521,4 +540,26 @@ public class TutorController {
 	public int getCaixaSistema() {
 		return (int)caixaSistema;
 	}
+	
+	public void configurarOrdem(String atributo) {
+		aux = 0;
+		tutorSort.clear();
+		tutorSort.addAll(this.tutores.values());
+		if (atributo.equals("EMAIL")) {
+			Collections.sort(tutorSort, new ComparaEmailTutor());
+		}
+		if (atributo.equals("NOME")) {
+			Collections.sort(tutorSort, new comparaNomeTutor());
+		}
+		if (atributo.equals("MATRICULA")) {
+			Collections.sort(tutorSort, new ComparaMatriculaTutor());
+		}
+		
+		aux += 1;
+	}
+	
+	
+	
+	
+	
 }

@@ -10,7 +10,7 @@ package projeto;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Aluno implements Comparable<Aluno>{
+public class Aluno {
 
 	/**
 	 * Matrícula do Aluno.
@@ -178,14 +178,7 @@ public class Aluno implements Comparable<Aluno>{
 		return true;
 	}
 
-	/**
-	 * Método compareTo implementado da interface {@link Comparable}. A ordenação natural definida para Aluno foi a de ordem
-	 * alfabética por nome.
-	 */
-	public int compareTo(Aluno a) {
-		return this.nome.compareTo(a.nome);
-	}
-	
+
 	/**
 	 * Método que retorna o ID de cadastro do Aluno, ou seja, a ordem em que foi cadastrado no sistema.
 	 * @return Inteiro que representa a ordem de cadastro do Aluno (ID)

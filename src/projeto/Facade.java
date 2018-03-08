@@ -270,4 +270,11 @@ public class Facade {
 	public int totalDinheiroSistema() {
 		return this.tutorController.getCaixaSistema();
 	}
+	
+	
+	public void configurarOrdem(String atributo) {
+		this.alunoController.configurarOrdem(atributo);
+		this.tutorController.configurarOrdem(atributo);
+	}
+	
 }
