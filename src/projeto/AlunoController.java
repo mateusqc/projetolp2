@@ -101,8 +101,6 @@ public class AlunoController {
 		if (this.help == 0) {
 		alunosSort.addAll(alunos.values());
 		Collections.sort(alunosSort, new comparaNome());
-		
-		
 		} 		
 		
 		String alunosListados = "";
@@ -160,9 +158,6 @@ public class AlunoController {
 }
 	
 		
-	
-	
-	
 	/**
 	 * Método auxiliar no papel de tornar o Aluno Tutor, verificando a presença do Aluno a ser transformado em Tutor no sistema e
 	 * retornando o mesmo.
