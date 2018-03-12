@@ -21,12 +21,16 @@ public class AlunoController {
 	 * Mapa de Alunos, onde a chave é a matrícula do Aluno.
 	 */
 	private Map<String, Aluno> alunos;
+	private List<Aluno> alunosSort;
+	private int help;
 	
 	/**
 	 * Construtor do controller, onde é inicializado o Mapa de Alunos.
 	 */
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
+		this.alunosSort = new ArrayList<Aluno>();
+		this.help = 0;
 	}
 		
 	/**
@@ -94,24 +98,21 @@ public class AlunoController {
 	 * @return String listando todos os Alunos ordenados 
 	 */
 	public String listarAlunos() {
-		List<Aluno> alunosOrdenadosNome = new ArrayList<Aluno>();
-		
-		for(Aluno aluno : this.alunos.values()) {
-			alunosOrdenadosNome.add(aluno);	
-		}
-		
-		Collections.sort(alunosOrdenadosNome);
+		if (this.help == 0) {
+		alunosSort.addAll(alunos.values());
+		Collections.sort(alunosSort, new comparaNome());
+		} 		
 		
 		String alunosListados = "";
-		for(int i=0; i < alunosOrdenadosNome.size(); i++) {
-			alunosListados += alunosOrdenadosNome.get(i).toString();
-			if(i != alunosOrdenadosNome.size() - 1) {
+		for(int i=0; i < this.alunosSort.size(); i++) {
+			alunosListados += this.alunosSort.get(i).toString();
+			if(i != this.alunosSort.size() - 1) {
 				alunosListados += ", ";
 			}
 		}
 		return alunosListados;
-		
 	}
+		
 	
 	/**
 	 * Método que retorna uma informação específica a respeito do Aluno. O atributo desejado é passado como parâmetro.
@@ -137,6 +138,26 @@ public class AlunoController {
 		
 	}
 	
+	public void configurarOrdem(String atributo) {
+		help = 0;
+		alunosSort.clear();
+		alunosSort.addAll(this.alunos.values());
+		if (atributo.equals("EMAIL")) {
+			Collections.sort(alunosSort, new ComparaEmail());
+			System.out.println(alunosSort);
+		if (atributo.equals("NOME")) {
+			Collections.sort(alunosSort, new comparaNome());
+			System.out.println(alunosSort);
+		}
+		if (atributo.equals("MATRICULA")) {
+			Collections.sort(alunosSort, new ComparaMatricula());
+			System.out.println(alunosSort);
+		}
+		help += 1;
+	}
+}
+	
+		
 	/**
 	 * Método auxiliar no papel de tornar o Aluno Tutor, verificando a presença do Aluno a ser transformado em Tutor no sistema e
 	 * retornando o mesmo.
