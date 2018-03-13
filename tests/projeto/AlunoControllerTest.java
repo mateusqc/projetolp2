@@ -161,10 +161,10 @@ public class AlunoControllerTest {
 	 * Verifica o funcionamento do método, que é um auxiliar na mudança de aluno para Tutor e retorna o Objeto Aluno correspondete à matrícula informada.
 	 */
 	@Test
-	public void testTornaTutorValido() {
+	public void testGetAlunoValido() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
 		Aluno aluno = new Aluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br", 0);
-		assertTrue("Deve ser retornado um objeto aluno correspondente ao aluno", aluno.equals(this.alunoController.recuperaAluno("117110907")));
+		assertTrue("Deve ser retornado um objeto aluno correspondente ao aluno", aluno.equals(this.alunoController.getAluno("117110907")));
 	}
 	
 	/**
@@ -188,6 +188,17 @@ public class AlunoControllerTest {
 	}
 	
 	/**
+	 * Verifica o funcionamento do método que ordena os alunos cadastrados por nome, porém com nomes iguais. Deve funcionar sem problemas, mas ordenando pela matrícula.
+	 */
+	@Test
+	public void testConfigurarOrdemNomeIgual() {
+		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Lucas", "117100000", 4000, "", "jose@ccc.ufcg.edu.br");
+		this.alunoController.configurarOrdem("NOME");
+		assertEquals(this.alunoController.listarAlunos(), "117100000 - Lucas - 4000 - jose@ccc.ufcg.edu.br, 117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
+	}
+	
+	/**
 	 * Verifica o funcionamento do método que ordena os alunos cadastrados por email. Deve funcionar sem problemas.
 	 */
 	@Test
@@ -199,14 +210,25 @@ public class AlunoControllerTest {
 	}
 	
 	/**
+	 * Verifica o funcionamento do método que ordena os alunos cadastrados por e-mail, porém com e-mails iguais. Deve funcionar sem problemas, mas ordenando pela matrícula.
+	 */
+	@Test
+	public void testConfigurarOrdemEmailIgual() {
+		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "marcos.jose@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Jose", "117100000", 4000, "", "marcos.jose@ccc.ufcg.edu.br");
+		this.alunoController.configurarOrdem("EMAIL");
+		assertEquals(this.alunoController.listarAlunos(), "117100000 - Jose - 4000 - marcos.jose@ccc.ufcg.edu.br, 117110793 - Lucas - 4000 - marcos.jose@ccc.ufcg.edu.br");
+	}
+	
+	/**
 	 * Verifica o funcionamento do método que ordena os alunos cadastrados por matrícula. Deve funcionar sem problemas.
 	 */
 	@Test
 	public void testConfigurarOrdemMatricula() {
 		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
-		this.alunoController.cadastrarAluno("Mateus", "117100900", 4000, "", "mateus@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Mateus", "117110900", 4000, "", "mateus@ccc.ufcg.edu.br");
 		this.alunoController.configurarOrdem("MATRICULA");
-		assertEquals(this.alunoController.listarAlunos(), "117110900 - Mateus - 4000 - mateus@ccc.ufcg.edu.br, 117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
+		assertEquals(this.alunoController.listarAlunos(), "117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br, 117110900 - Mateus - 4000 - mateus@ccc.ufcg.edu.br");
 	}
 	
 }

@@ -2,6 +2,7 @@ package projeto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,16 +22,14 @@ public class AlunoController {
 	 * Mapa de Alunos, onde a chave é a matrícula do Aluno.
 	 */
 	private Map<String, Aluno> alunos;
-	private List<Aluno> alunosSort;
-	private int help;
+	private Comparator comparador;
 	
 	/**
-	 * Construtor do controller, onde é inicializado o Mapa de Alunos.
+	 * Construtor do controller, onde é inicializado o Mapa de Alunos e o comparador padrão de ordenação.
 	 */
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
-		this.alunosSort = new ArrayList<Aluno>();
-		this.help = 0;
+		this.comparador = new ComparaNome();
 	}
 		
 	/**
@@ -98,15 +97,14 @@ public class AlunoController {
 	 * @return String listando todos os Alunos ordenados 
 	 */
 	public String listarAlunos() {
-		if (this.help == 0) {
+		List<Aluno> alunosSort = new ArrayList<Aluno>(); 
 		alunosSort.addAll(alunos.values());
-		Collections.sort(alunosSort, new comparaNome());
-		} 		
+		Collections.sort(alunosSort, this.comparador);
 		
 		String alunosListados = "";
-		for(int i=0; i < this.alunosSort.size(); i++) {
-			alunosListados += this.alunosSort.get(i).toString();
-			if(i != this.alunosSort.size() - 1) {
+		for(int i = 0; i < alunosSort.size(); i++) {
+			alunosListados += alunosSort.get(i).toString();
+			if(i != alunosSort.size() - 1) {
 				alunosListados += ", ";
 			}
 		}
@@ -139,28 +137,19 @@ public class AlunoController {
 	}
 	
 	public void configurarOrdem(String atributo) {
-		help = 0;
-		alunosSort.clear();
-		alunosSort.addAll(this.alunos.values());
 		if(atributo.equals("EMAIL")) {
-			Collections.sort(alunosSort, new ComparaEmail());
-			//System.out.println(alunosSort);
+			this.comparador = new ComparaEmail();
+		}
 		if(atributo.equals("NOME")) {
-			Collections.sort(alunosSort, new comparaNome());
-			//System.out.println(alunosSort);
+			this.comparador = new ComparaNome();
 		}
 		if(atributo.equals("MATRICULA")) {
-			Collections.sort(alunosSort, new ComparaMatricula());
-			//System.out.println(alunosSort);
+			this.comparador = null;
 		}
-		help += 1;
 	}
-}
-	
 		
 	/**
-	 * Método auxiliar no papel de tornar o Aluno Tutor, verificando a presença do Aluno a ser transformado em Tutor no sistema e
-	 * retornando o mesmo.
+	 * Método auxiliar que retorna um Aluno cadastrado no sistema, verificando a presença do mesmo e retornando-o.
 	 * @param matricula matrícula do Aluno
 	 * @return Objeto do tipo {@link Aluno} referente à matrícula informada
 	 */

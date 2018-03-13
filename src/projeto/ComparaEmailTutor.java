@@ -10,13 +10,7 @@ public class ComparaEmailTutor implements Comparator<Tutor>{
 			return valor;
 		}
 		else {
-			if (a.getAluno().getMatricula().compareTo(b.getAluno().getMatricula()) < 0) {
-				return 1;
-			}
-			else {
-				return -1;
-			}
-		
+			return a.getAluno().compareTo(b.getAluno());
 		}
 	}
 }
