@@ -155,6 +155,9 @@ public class AlunoTest {
 	public void testGetNotaAvaliacao() {
 		assertTrue("Como nenhuma nota foi adicionada, deve ser 5", aluno.getNotaAvaliacao() == 5.0);
 	}
-}
 	
-
+	@Test
+	public void testGetIdCadastro() {
+		assertTrue(aluno.getIdCadastro() == 0);
+	}
+}

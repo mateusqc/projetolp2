@@ -118,7 +118,7 @@ public class AlunoControllerTest {
 	@Test
 	public void testGetInfoAlunoMatriculaValidaNome() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertEquals("O padrâmetro solicitado deverá ser informado", "Mateus Cunha", this.alunoController.getInfoAluno("117110907", "nome"));
+		assertEquals("O parâmetro solicitado deverá ser informado", "Mateus Cunha", this.alunoController.getInfoAluno("117110907", "nome"));
 	}
 	
 	/**
@@ -127,7 +127,7 @@ public class AlunoControllerTest {
 	@Test
 	public void testGetInfoAlunoMatriculaValidaTelefone() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertEquals("O padrâmetro solicitado deverá ser informado", "", this.alunoController.getInfoAluno("117110907", "telefone"));
+		assertEquals("O parâmetro solicitado deverá ser informado", "", this.alunoController.getInfoAluno("117110907", "telefone"));
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class AlunoControllerTest {
 	@Test
 	public void testGetInfoAlunoMatriculaValidaEmail() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertEquals("O padrâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110907", "email"));
+		assertEquals("O parâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110907", "email"));
 	}
 	
 	/**
@@ -145,7 +145,7 @@ public class AlunoControllerTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetInfoAlunoMatriculaInvalida() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertEquals("O padrâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110908", "email"));
+		assertEquals("O parâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110908", "email"));
 	}
 	
 	/**
@@ -154,7 +154,7 @@ public class AlunoControllerTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetInfoAlunoMatriculaValidaAtributoInvalido() {
 		this.alunoController.cadastrarAluno("Mateus Cunha", "117110907", 45678, "", "mateus.cunha@ccc.ufcg.edu.br");
-		assertEquals("O padrâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110907", "matricula"));
+		assertEquals("O parâmetro solicitado deverá ser informado", "mateus.cunha@ccc.ufcg.edu.br", this.alunoController.getInfoAluno("117110907", "matricula"));
 	}
 	
 	/**
@@ -175,4 +175,38 @@ public class AlunoControllerTest {
 	public void testTornaTutorInvalido() {
 		this.alunoController.recuperaAluno("117110907");
 	}
+	
+	/**
+	 * Verifica o funcionamento do método que ordena os alunos cadastrados por nome. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testConfigurarOrdemNome() {
+		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Jose", "117100000", 4000, "", "jose@ccc.ufcg.edu.br");
+		this.alunoController.configurarOrdem("NOME");
+		assertEquals(this.alunoController.listarAlunos(), "117100000 - Jose - 4000 - jose@ccc.ufcg.edu.br, 117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
+	}
+	
+	/**
+	 * Verifica o funcionamento do método que ordena os alunos cadastrados por email. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testConfigurarOrdemEmail() {
+		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Jose", "117100000", 4000, "", "marcos.jose@ccc.ufcg.edu.br");
+		this.alunoController.configurarOrdem("EMAIL");
+		assertEquals(this.alunoController.listarAlunos(), "117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br, 117100000 - Jose - 4000 - marcos.jose@ccc.ufcg.edu.br");;
+	}
+	
+	/**
+	 * Verifica o funcionamento do método que ordena os alunos cadastrados por matrícula. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testConfigurarOrdemMatricula() {
+		this.alunoController.cadastrarAluno("Lucas", "117110793", 4000, "", "lucas.brasil@ccc.ufcg.edu.br");
+		this.alunoController.cadastrarAluno("Mateus", "117100900", 4000, "", "mateus@ccc.ufcg.edu.br");
+		this.alunoController.configurarOrdem("MATRICULA");
+		assertEquals(this.alunoController.listarAlunos(), "117110900 - Mateus - 4000 - mateus@ccc.ufcg.edu.br, 117110793 - Lucas - 4000 - lucas.brasil@ccc.ufcg.edu.br");
+	}
+	
 }

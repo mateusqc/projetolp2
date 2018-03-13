@@ -185,5 +185,9 @@ public class Aluno {
 	 */
 	public int getIdCadastro() {
 		return this.idCadastro;
+	}
+
+	public int compareTo(Aluno alunoDois) {
+		return this.nome.compareTo(alunoDois.getNome());
 	}	
 }

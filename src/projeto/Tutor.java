@@ -257,4 +257,8 @@ public class Tutor {
 		return this.notaAvaliacaoTutor;
 	}
 
+	public int compareTo(Tutor tutorDois) {
+		return this.getAluno().getNome().compareTo(tutorDois.getAluno().getNome());
+	}
+
 }
