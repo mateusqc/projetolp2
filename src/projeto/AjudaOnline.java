@@ -43,7 +43,7 @@ public class AjudaOnline extends Ajuda {
 			throw new IllegalArgumentException(
 					"Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
 		}
-		if (atributo.equals(disciplina)) {
+		if (atributo.equals("disciplina")) {
 			return super.getDisciplina();
 		}
 		throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : atributo nao encontrado");

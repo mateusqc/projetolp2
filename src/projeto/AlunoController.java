@@ -142,16 +142,16 @@ public class AlunoController {
 		help = 0;
 		alunosSort.clear();
 		alunosSort.addAll(this.alunos.values());
-		if (atributo.equals("EMAIL")) {
+		if(atributo.equals("EMAIL")) {
 			Collections.sort(alunosSort, new ComparaEmail());
-			System.out.println(alunosSort);
-		if (atributo.equals("NOME")) {
+			//System.out.println(alunosSort);
+		if(atributo.equals("NOME")) {
 			Collections.sort(alunosSort, new comparaNome());
-			System.out.println(alunosSort);
+			//System.out.println(alunosSort);
 		}
-		if (atributo.equals("MATRICULA")) {
+		if(atributo.equals("MATRICULA")) {
 			Collections.sort(alunosSort, new ComparaMatricula());
-			System.out.println(alunosSort);
+			//System.out.println(alunosSort);
 		}
 		help += 1;
 	}

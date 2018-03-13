@@ -123,6 +123,52 @@ public class TutorTest {
 		assert(tutorDois.compareTo(tutorUm) < 0);
 	}
 	
+	/**
+	 * Verifica o funcionamento do método de recuperar o nível do tutor, com nota de avaliação suficiente para ser nível Tutor. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testPegarNivelTutor() {
+		assertEquals(tutorUm.pegarNivel(), "Tutor");
+	}
 	
+	/**
+	 * Verifica o funcionamento do método de recuperar o nível do tutor, com nota de avaliação suficiente para ser nível TOP. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testPegarNivelTop() {
+		tutorUm.avaliarTutor(5);
+		tutorUm.avaliarTutor(5);
+		tutorUm.avaliarTutor(5);
+		tutorUm.avaliarTutor(5);
+		assertEquals(tutorUm.pegarNivel(), "TOP");
+	}
+	
+	/**
+	 * Verifica o funcionamento do método de recuperar o nível do tutor, com nota de avaliação suficiente para ser nível Aprendiz. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testPegarNivelAprendiz() {
+		tutorUm.avaliarTutor(0);
+		tutorUm.avaliarTutor(0);
+		assertEquals(tutorUm.pegarNivel(), "Aprendiz");
+
+	}
+	
+	/**
+	 * Verifica o funcionamento do método do tutor de receber dinheiro. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testRecebeDinheiro() {
+		tutorUm.recebeDinheiro(100);
+		assertTrue(tutorUm.totalDinheiroTutor() == 100);
+	}
+	
+	/**
+	 * Verifica o funcionamento do método de recuperar a nota de avaliação do tutor. Deve funcionar sem problemas.
+	 */
+	@Test
+	public void testGetNotaAvaliacao() {
+		assertTrue(tutorUm.getNotaAvaliacao() == 4);
+	}
 
 }
