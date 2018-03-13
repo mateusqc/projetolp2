@@ -27,10 +27,6 @@ public class TutorController {
 	 * Mapa dos e-mails dos Tutores cadastrados para suas matrículas.
 	 */
 	private Map<String, String> emailTutores;
-	
-	private List<Ajuda> ajudas;
-	
-	private double caixaSistema;
 
 	private Comparator comparador;
 	/**
@@ -39,7 +35,6 @@ public class TutorController {
 	public TutorController() {
 		this.tutores = new HashMap<String, Tutor>();
 		this.emailTutores = new HashMap<String, String>();
-		this.ajudas = new ArrayList<Ajuda>();
 		this.comparador = new ComparaNomeTutor();
 	}
 
@@ -204,8 +199,20 @@ public class TutorController {
 	 * @param localInteresse local de interesse para a ajuda
 	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
 	 */
-	public Tutor getTutorDisponivel(String disciplina, String horario, String dia, String localInteresse) {
-
+	public String getTutorDisponivel(String disciplina, String horario, String dia, String localInteresse) {
+		if (disciplina.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: disciplina nao pode ser vazio ou em branco");
+		}
+		if (horario.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: horario nao pode ser vazio ou em branco");
+		}
+		if (dia.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: dia nao pode ser vazio ou em branco");
+		}
+		if (localInteresse.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: local de interesse nao pode ser vazio ou em branco");
+		}
+		
 		Tutor tutorEscolhido = null;
 
 		for (Tutor tutor : tutores.values()) {
@@ -223,7 +230,7 @@ public class TutorController {
 				}
 			}
 		}
-		return tutorEscolhido;
+		return tutorEscolhido.getAluno().getMatricula();
 	}
 
 	/**
@@ -232,7 +239,10 @@ public class TutorController {
 	 * @param disciplina disciplina da ajuda solicitada
 	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
 	 */
-	public Tutor getTutorDisponivel(String disciplina) {
+	public String getTutorDisponivel(String disciplina) {
+		if (disciplina.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda online: disciplina nao pode ser vazio ou em branco");
+		}
 		Tutor tutorEscolhido = null;
 
 		for (Tutor tutor : tutores.values()) {
@@ -252,7 +262,7 @@ public class TutorController {
 
 		}
 
-		return tutorEscolhido;
+		return tutorEscolhido.getAluno().getMatricula();
 	}
 
 	/**
@@ -293,7 +303,7 @@ public class TutorController {
 	 * @param matriculaTutor
 	 * @param totalCentavos
 	 */
-	public void doar(String matriculaTutor, int totalCentavos) {
+	public double doar(String matriculaTutor, int totalCentavos) {
 		
 		if (matriculaTutor.trim().equals("") || matriculaTutor == null) {
 			throw new IllegalArgumentException("Erro na doacao para tutor: matriculaTutor nao pode ser vazio ou nulo");
@@ -308,7 +318,7 @@ public class TutorController {
 		double taxa = calculaTaxa(matriculaTutor);
 		double dinheiroTutor = calculaValores(taxa, totalCentavos);
 		this.tutores.get(matriculaTutor).recebeDinheiro(dinheiroTutor);
-		this.caixaSistema += totalCentavos - dinheiroTutor;
+		return totalCentavos - dinheiroTutor;
 	}
 	/**
 	 * Método que calcula o valor a ser recebido pelo tutor.
@@ -354,14 +364,6 @@ public class TutorController {
 			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: Tutor nao encontrado");
 		}
 		return (int) this.tutores.get(this.emailTutores.get(emailTutor)).totalDinheiroTutor();     
-	}
-	
-	/**
-	 * Método que retorna o valor inteiro do caixa do sistema de tutores.
-	 * @return
-	 */
-	public int getCaixaSistema() {
-		return (int)caixaSistema;
 	}
 	
 	public void configurarOrdem(String atributo) {

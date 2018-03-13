@@ -260,7 +260,7 @@ public class Facade {
 	 * @return
 	 */
 	public int totalDinheiroSistema() {
-		return this.controller.getCaixaSistema();
+		return this.controller.totalDinheiroSistema();
 	}
 	
 	

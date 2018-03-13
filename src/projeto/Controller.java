@@ -25,12 +25,15 @@ public class Controller {
 	 */
 	private AjudaController ajudaController;
 	
+	private double caixaSistema;
+	
 	/**
 	 * Construtor da Classe Facade que inicializa os controllers.
 	 */
 	public Controller() {
 		this.alunoController = new AlunoController();
 		this.tutorController = new TutorController();
+		this.ajudaController = new AjudaController();
 	}
 	
 	/**
@@ -170,7 +173,7 @@ public class Controller {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
-		return this.ajudaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse, this.tutorController.getTutorDisponivel(disciplina, horario, dia, localInteresse).getAluno().getMatricula());
+		return this.ajudaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse, this.tutorController.getTutorDisponivel(disciplina, horario, dia, localInteresse));
 	}
 
 	/**
@@ -182,7 +185,7 @@ public class Controller {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
-		return this.ajudaController.pedirAjudaOnline(matrAluno, disciplina, this.tutorController.getTutorDisponivel(disciplina).getAluno().getMatricula());
+		return this.ajudaController.pedirAjudaOnline(matrAluno, disciplina, this.tutorController.getTutorDisponivel(disciplina));
 	}
 
 	/**
@@ -218,6 +221,12 @@ public class Controller {
 	 * @return String com a nova média do tutor.
 	 */
 	public String avaliarTutor(int idAjuda, int nota) {
+		if (nota < 0) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser menor que 0");
+		}
+		if (nota > 5) {
+			throw new IllegalArgumentException("Erro na avaliacao de tutor: nota nao pode ser maior que 5");
+		}
 		return this.tutorController.avaliarTutor(this.ajudaController.avaliaAjuda(idAjuda), nota);
 	}
 
@@ -250,7 +259,7 @@ public class Controller {
 	 */
 
 	public void doar(String matriculaTutor, int totalCentavos) {
-		this.tutorController.doar(matriculaTutor, totalCentavos);
+		this.caixaSistema += this.tutorController.doar(matriculaTutor, totalCentavos);
 	}
 	
 	/**
@@ -268,7 +277,7 @@ public class Controller {
 	 * @return
 	 */
 	public int totalDinheiroSistema() {
-		return this.tutorController.getCaixaSistema();
+		return (int) this.caixaSistema;
 	}
 	
 	
