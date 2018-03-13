@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import projeto.Aluno;
-import projeto.Tutor;
+import qma.Aluno;
+import qma.Tutor;
 
 /**
  * Classe de Testes JUnit para a classe {@link Tutor}.

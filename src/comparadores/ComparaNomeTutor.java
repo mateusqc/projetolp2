@@ -1,6 +1,8 @@
-package projeto;
+package comparadores;
 
 import java.util.Comparator;
+
+import qma.Tutor;
 
 public class ComparaNomeTutor implements Comparator<Tutor>{
 

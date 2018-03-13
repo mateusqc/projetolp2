@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import qma.Aluno;
+import qma.AlunoController;
+
 /**
  * Classe de Testes para o {@link AlunoController}.
  * 

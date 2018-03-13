@@ -1,4 +1,4 @@
-package projeto;
+package ajuda;
 
 /**
  * Classe abstrata que representa uma Ajuda no sistema QUEM ME AJUDA.

@@ -1,4 +1,4 @@
-package projeto;
+package qma;
 
 import java.util.ArrayList;
 import java.util.HashMap;
