@@ -1,7 +1,5 @@
 package projeto;
 
-import easyaccept.EasyAccept;
-
 /**
  * Classe de Fachada para os Controllers do QUEM ME AJUDA.
  * 
@@ -13,24 +11,26 @@ import easyaccept.EasyAccept;
  * @author Vitor Alves Correia Lima de Aquino
  *
  */
-public class Facade {
-	private Controller controller;
+public class Controller {
+	/**
+	 * Controller de Alunos.
+	 */
+	private AlunoController alunoController;
+	/**
+	 * Controller de Tutores.
+	 */
+	private TutorController tutorController;
+	/**
+	 * Controller de Ajudas.
+	 */
+	private AjudaController ajudaController;
 	
 	/**
 	 * Construtor da Classe Facade que inicializa os controllers.
 	 */
-	public Facade() {
-		this.controller = new Controller();
-	}
-	
-	/**
-	 * Método main para execução dos testes do EasyAccept.
-	 * @param args array de argumentos
-	 */
-	public static void main(String[] args) {
-		args = new String[] { "projeto.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt", "acceptance_test/us3_test.txt",
-							"acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt", "acceptance_test/us6_test.txt"};
-		EasyAccept.main(args);
+	public Controller() {
+		this.alunoController = new AlunoController();
+		this.tutorController = new TutorController();
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class Facade {
 	 * @param email e-mail do aluno
 	 */
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		this.controller.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
+		this.alunoController.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class Facade {
 	 * @return String com as informações do aluno com a respectiva matrícula
 	 */
 	public String recuperaAluno(String matricula) {
-		return this.controller.recuperaAluno(matricula);
+		return this.alunoController.recuperaAluno(matricula);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class Facade {
 	 * @return String com a listagem dos alunos
 	 */
 	public String listarAlunos() {
-		return this.controller.listarAlunos();
+		return this.alunoController.listarAlunos();
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class Facade {
 	 * @return String com a informação do atributo informado
 	 */
 	public String getInfoAluno(String matricula, String atributo) {
-		return this.controller.getInfoAluno(matricula, atributo);
+		return this.alunoController.getInfoAluno(matricula, atributo);
 	}
 	
 	/**
@@ -84,7 +84,15 @@ public class Facade {
 	 * @param proficiencia proficiência do aluno na disciplina
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		this.controller.tornarTutor(matricula, disciplina, proficiencia);
+		try {
+			this.tutorController.tornarTutor(matricula, disciplina, proficiencia, this.alunoController.getAluno(matricula));
+		} catch (IllegalArgumentException iae) {
+			if (iae.getMessage().equals("Aluno nao encontrado")) {
+			throw new IllegalArgumentException("Erro na definicao de papel: Tutor nao encontrado");
+			} else {
+				throw iae;
+			}
+		}
 	}
 	
 	/**
@@ -94,7 +102,7 @@ public class Facade {
 	 * @return String com as informações do tutor
 	 */
 	public String recuperaTutor(String matricula) {
-		return this.controller.recuperaTutor(matricula);
+		return this.tutorController.recuperaTutor(matricula);
 	}
 	
 	/**
@@ -103,7 +111,7 @@ public class Facade {
 	 * @return
 	 */
 	public String listarTutores() {
-		return this.controller.listarTutores();
+		return this.tutorController.listarTutores();
 	}
 	
 	/**
@@ -114,7 +122,7 @@ public class Facade {
 	 * @param dia dia disponível para o tutor
 	 */
 	public void cadastrarHorario(String email, String horario, String dia) {
-		this.controller.cadastrarHorario(email, horario, dia);
+		this.tutorController.cadastrarHorario(email, horario, dia);
 	}
 	
 	/**
@@ -124,7 +132,7 @@ public class Facade {
 	 * @param local local disponível para o tutor
 	 */
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		this.controller.cadastrarLocalDeAtendimento(email, local);
+		this.tutorController.cadastrarLocalDeAtendimento(email, local);
 	}
 	
 	/**
@@ -136,7 +144,7 @@ public class Facade {
 	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
 	public boolean consultaHorario(String email, String horario, String dia) {
-		return this.controller.consultaHorario(email, horario, dia);
+		return this.tutorController.consultaHorario(email, horario, dia);
 	}
 	
 	/**
@@ -147,7 +155,7 @@ public class Facade {
 	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
 	public boolean consultaLocal(String email, String local) {
-		return this.controller.consultaLocal(email, local);
+		return this.tutorController.consultaLocal(email, local);
 	}
 
 	/**
@@ -162,7 +170,7 @@ public class Facade {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
-		return this.controller.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
+		return this.ajudaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse, this.tutorController.getTutorDisponivel(disciplina, horario, dia, localInteresse).getAluno().getMatricula());
 	}
 
 	/**
@@ -174,7 +182,7 @@ public class Facade {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
-		return this.controller.pedirAjudaOnline(matrAluno, disciplina);
+		return this.ajudaController.pedirAjudaOnline(matrAluno, disciplina, this.tutorController.getTutorDisponivel(disciplina).getAluno().getMatricula());
 	}
 
 	/**
@@ -185,7 +193,7 @@ public class Facade {
 	 * @return String com as informações do tutor e da ajuda
 	 */
 	public String pegarTutor(int idAjuda) {
-		return this.controller.pegarTutor(idAjuda);
+		return this.ajudaController.pegarTutor(idAjuda);
 
 	}
 
@@ -198,7 +206,7 @@ public class Facade {
 	 * @return String com o atributo desejado
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
-		return this.controller.getInfoAjuda(idAjuda, atributo);
+		return this.ajudaController.getInfoAjuda(idAjuda, atributo);
 	}
 
 	/**
@@ -210,7 +218,7 @@ public class Facade {
 	 * @return String com a nova média do tutor.
 	 */
 	public String avaliarTutor(int idAjuda, int nota) {
-		return this.controller.avaliarTutor(idAjuda, nota);
+		return this.tutorController.avaliarTutor(this.ajudaController.avaliaAjuda(idAjuda), nota);
 	}
 
 	/**
@@ -221,7 +229,7 @@ public class Facade {
 	 * @return String com a nota de avaliação do tutor
 	 */
 	public String pegarNota(String matriculaTutor) {
-		return this.controller.pegarNota(matriculaTutor);
+		return this.tutorController.pegarNota(matriculaTutor);
 	}
 
 	/**
@@ -232,7 +240,7 @@ public class Facade {
 	 * @return String com o nível do tutor
 	 */
 	public String pegarNivel(String matriculaTutor) {
-		return this.controller.pegarNivel(matriculaTutor);
+		return this.tutorController.pegarNivel(matriculaTutor);
 	}
 	
 	/**
@@ -242,7 +250,7 @@ public class Facade {
 	 */
 
 	public void doar(String matriculaTutor, int totalCentavos) {
-		this.controller.doar(matriculaTutor, totalCentavos);
+		this.tutorController.doar(matriculaTutor, totalCentavos);
 	}
 	
 	/**
@@ -252,7 +260,7 @@ public class Facade {
 	 */
 	
 	public int totalDinheiroTutor(String emailTutor) {
-		return this.controller.totalDinheiroTutor(emailTutor);
+		return this.tutorController.totalDinheiroTutor(emailTutor);
 	}
 	
 	/**
@@ -260,13 +268,13 @@ public class Facade {
 	 * @return
 	 */
 	public int totalDinheiroSistema() {
-		return this.controller.getCaixaSistema();
+		return this.tutorController.getCaixaSistema();
 	}
 	
 	
 	public void configurarOrdem(String atributo) {
-		this.controller.configurarOrdem(atributo);
-		this.controller.configurarOrdem(atributo);
+		this.alunoController.configurarOrdem(atributo);
+		this.tutorController.configurarOrdem(atributo);
 	}
 	
 }
