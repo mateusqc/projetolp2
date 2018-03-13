@@ -1,7 +1,7 @@
-package projeto;
+package qma;
 
 /**
- * Classe de Fachada para os Controllers do QUEM ME AJUDA.
+ * Classe Controller para gerenciar os Controllers do QUEM ME AJUDA.
  * 
  * Projeto de LP2 - Quem me ajuda
  * 
@@ -11,7 +11,7 @@ package projeto;
  * @author Vitor Alves Correia Lima de Aquino
  *
  */
-public class Controller {
+public class SistemaController {
 	/**
 	 * Controller de Alunos.
 	 */
@@ -24,16 +24,19 @@ public class Controller {
 	 * Controller de Ajudas.
 	 */
 	private AjudaController ajudaController;
-	
+	/**
+	 * Valor presente no caixa do sistema;
+	 */
 	private double caixaSistema;
 	
 	/**
 	 * Construtor da Classe Facade que inicializa os controllers.
 	 */
-	public Controller() {
+	public SistemaController() {
 		this.alunoController = new AlunoController();
 		this.tutorController = new TutorController();
 		this.ajudaController = new AjudaController();
+		this.caixaSistema = 0;
 	}
 	
 	/**
@@ -60,7 +63,8 @@ public class Controller {
 	}
 	
 	/**
-	 * Método que gera uma listagem de todos os Alunos cadastrados no sistema ordenados por ordem alfabética pelo nome.
+	 * Método que gera uma listagem de todos os Alunos cadastrados no sistema ordenados pela ordem definida no método {@link AlunoController#configurarOrdem(String)},
+	 * ou por ordem alfabética pelo nome, caso não tenha sido definida nenhuma ordenação.
 	 * Utiliza o método {@link AlunoController#listarAlunos()} da classe {@link AlunoController}.
 	 * @return String com a listagem dos alunos
 	 */
@@ -81,7 +85,7 @@ public class Controller {
 	
 	/**
 	 * Método que torna um Aluno em Tutor. Utiliza os métodos {@link TutorController#tornarTutor(String, String, int, Aluno)} da classe {@link TutorController} e 
-	 * {@link AlunoController#tornarTutor(String)} da classe {@link AlunoController}.
+	 * {@link AlunoController#getAluno(String)} da classe {@link AlunoController}.
 	 * @param matricula matrícula do aluno
 	 * @param disciplina disciplina de tutoria
 	 * @param proficiencia proficiência do aluno na disciplina
@@ -111,7 +115,7 @@ public class Controller {
 	/**
 	 * Método que retorna uma listagem dos Tutores cadastrados no sistema. Utiliza o método {@link TutorController#listarTutores()} da classe
 	 * {@link TutorController}.
-	 * @return
+	 * @return String com a listagem de tutores cadastrados no sistema
 	 */
 	public String listarTutores() {
 		return this.tutorController.listarTutores();

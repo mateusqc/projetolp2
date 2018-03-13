@@ -1,4 +1,4 @@
-package projeto;
+package ajuda;
 
 /**
  * Classe que representa uma Ajuda Presencial no sistema QUEM ME AJUDA.

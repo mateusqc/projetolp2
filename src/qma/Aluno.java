@@ -1,4 +1,4 @@
-package projeto;
+package qma;
 
 /**
  * Classe que representa um Aluno no sistema QUEM ME AJUDA.

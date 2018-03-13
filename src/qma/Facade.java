@@ -1,4 +1,4 @@
-package projeto;
+package qma;
 
 import easyaccept.EasyAccept;
 
@@ -14,13 +14,13 @@ import easyaccept.EasyAccept;
  *
  */
 public class Facade {
-	private Controller controller;
+	private SistemaController controller;
 	
 	/**
 	 * Construtor da Classe Facade que inicializa os controllers.
 	 */
 	public Facade() {
-		this.controller = new Controller();
+		this.controller = new SistemaController();
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class Facade {
 	 * @param args array de argumentos
 	 */
 	public static void main(String[] args) {
-		args = new String[] { "projeto.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt", "acceptance_test/us3_test.txt",
+		args = new String[] { "qma.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt", "acceptance_test/us3_test.txt",
 							"acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt", "acceptance_test/us6_test.txt"};
 		EasyAccept.main(args);
 	}

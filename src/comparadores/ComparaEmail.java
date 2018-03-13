@@ -1,6 +1,8 @@
-package projeto;
+package comparadores;
 
 import java.util.Comparator;
+
+import qma.Aluno;
 
 /**
  * Classe de implementação da comparação de {@link Aluno} por E-mail, ordem lexicográfica.

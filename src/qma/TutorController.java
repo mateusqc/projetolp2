@@ -1,4 +1,4 @@
-package projeto;
+package qma;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import comparadores.ComparaEmailTutor;
+import comparadores.ComparaNomeTutor;
 
 /**
  * Classe que representa o Controller de Alunos do QUEM ME AJUDA.
@@ -299,9 +302,10 @@ public class TutorController {
 	}
 	
 	/**
-	 * Método que objetifica uma doação para um tutor e também o dinheiro a ser adicionado no sistema.
-	 * @param matriculaTutor
-	 * @param totalCentavos
+	 * Método que entrega uma doação para um Tutor e retorna o dinheiro a ser adicionado no sistema.
+	 * @param matriculaTutor matrícula do tutor que irá receber a doação
+	 * @param totalCentavos valor da doação
+	 * @return Double com o dinheiro a ser adicionado no sistema
 	 */
 	public double doar(String matriculaTutor, int totalCentavos) {
 		
@@ -322,9 +326,9 @@ public class TutorController {
 	}
 	/**
 	 * Método que calcula o valor a ser recebido pelo tutor.
-	 * @param taxa
-	 * @param totalCentavos
-	 * @return
+	 * @param taxa taxa do tutor
+	 * @param totalCentavos valor da doação
+	 * @return Double com o valor a ser recebido pelo tutor
 	 */
 	private double calculaValores(double taxa, int totalCentavos) {
 		double totalSistema = Math.floor(((100 - ((taxa*100)))/100) * totalCentavos);
@@ -332,8 +336,8 @@ public class TutorController {
 
 	}
 	/**
-	 * Método que calcula a taxa a ser usada para definir os valores recebidos pelo tutor e pelo sistema
-	 * @param matriculaTutor
+	 * Método que calcula a taxa a ser usada para definir os valores recebidos pelo tutor e pelo sistema.
+	 * @param matriculaTutor matrícula do tutor que irá receber a doação
 	 * @return
 	 */
 	private double calculaTaxa(String matriculaTutor) {

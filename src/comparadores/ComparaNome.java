@@ -1,6 +1,8 @@
-package projeto;
+package comparadores;
 
 import java.util.Comparator;
+
+import qma.Aluno;
 
 public class ComparaNome implements Comparator<Aluno> {
 

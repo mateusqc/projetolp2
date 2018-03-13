@@ -1,7 +1,11 @@
-package projeto;
+package qma;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ajuda.Ajuda;
+import ajuda.AjudaOnline;
+import ajuda.AjudaPresencial;
 
 public class AjudaController {
 	
