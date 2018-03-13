@@ -10,7 +10,7 @@ package projeto;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Aluno {
+public class Aluno implements Comparable<Aluno>{
 
 	/**
 	 * Matrícula do Aluno.
@@ -187,7 +187,11 @@ public class Aluno {
 		return this.idCadastro;
 	}
 
+	/**
+	 * Método compareTo que faz a comparação padrão de Aluno por matrícula.
+	 */
+	@Override
 	public int compareTo(Aluno alunoDois) {
-		return this.nome.compareTo(alunoDois.getNome());
+		return this.matricula.compareTo(alunoDois.getMatricula());
 	}	
 }

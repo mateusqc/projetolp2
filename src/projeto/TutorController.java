@@ -3,6 +3,7 @@ package projeto;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,7 @@ public class TutorController {
 	
 	private double caixaSistema;
 
-	private List<Tutor> tutorSort;
-	
-	private int aux;
+	private Comparator comparador;
 	/**
 	 * Construtor de TutorController. Inicializa o mapa de tutores.
 	 */
@@ -41,8 +40,7 @@ public class TutorController {
 		this.tutores = new HashMap<String, Tutor>();
 		this.emailTutores = new HashMap<String, String>();
 		this.ajudas = new ArrayList<Ajuda>();
-		this.tutorSort = new ArrayList<Tutor>();
-		this.aux = 0;
+		this.comparador = new ComparaNomeTutor();
 	}
 
 	/**
@@ -83,37 +81,19 @@ public class TutorController {
 	 * @return String com a listagem ordenada dos tutores
 	 */
 	public String listarTutores() {
-		if (this.aux == 0) {
-		tutorSort.addAll(tutores.values());
-		Collections.sort(tutorSort, new comparaNomeTutor());
+		List<Tutor> tutoresSort = new ArrayList<Tutor>(); 
+		tutoresSort.addAll(this.tutores.values());
+		Collections.sort(tutoresSort, this.comparador);
 		
-		
-		} 		
-		
-		String tutoresListados = "";
-		for(int i=0; i < this.tutorSort.size(); i++) {
-			tutoresListados += this.tutorSort.get(i).toString();
-			if(i != this.tutorSort.size() - 1) {
-				tutoresListados += ", ";
+		String alunosListados = "";
+		for(int i = 0; i < tutoresSort.size(); i++) {
+			alunosListados += tutoresSort.get(i).toString();
+			if(i != tutoresSort.size() - 1) {
+				alunosListados += ", ";
 			}
 		}
-		return tutoresListados.substring(0, tutoresListados.length());
-	}
-		
-		
-		/*
-		List<Tutor> tutoresOrdenadosNome = new ArrayList<Tutor>();
-		
-		for(Tutor tutor : this.tutores.values()) {
-			tutoresOrdenadosNome.add(tutor);
-		}
-		
-		Collections.sort(tutoresOrdenadosNome);
-		
-		String tutoresListados = "";
-		for(int i=0; i < tutoresOrdenadosNome.size(); i++) {
-			tutoresListados += tutoresOrdenadosNome.get(i).toString() + ", ";
-		}	*/	
+		return alunosListados;
+	}	
 
 	/**
 	 * Método que recebe os parametros necessários, verifica a validade e realiza cadastro de horario de atendimento de um tutor.
@@ -247,18 +227,6 @@ public class TutorController {
 	}
 
 	/**
-	 * Na ajuda online, o aluno indica a disciplina de interesse por ajuda. Ao
-	 * realizar um pedido no sistema, o sistema deve associar um tutor a esse
-	 * pedido. O tutor escolhido precisa ter proficiência na disciplina.
-	 * 
-	 * Caso mais de um tutor esteja disponível para aquela disciplina,o de maior
-	 * pontuação deve ser retornado (ou o primeiro aluno cadastrado em caso de
-	 * empate). O mesmo tutor pode ser retornado para vários pedidos de ajuda
-	 * diferentes.
-	 * 
-	 * 
-	 */
-	/**
 	 * Método que seleciona o tutor adequado para a ajuda solicitada. A ordem de prioridade dentre os tutores disponíveis é por proficiência,
 	 * pontuação e por último ordem de cadastro. 
 	 * @param disciplina disciplina da ajuda solicitada
@@ -327,15 +295,12 @@ public class TutorController {
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		if (matrAluno.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda online: matricula de aluno nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda online: matricula de aluno nao pode ser vazio ou em branco");
 		}
 		if (disciplina.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no pedido de ajuda online: disciplina nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro no pedido de ajuda online: disciplina nao pode ser vazio ou em branco");
 		}
-		AjudaOnline ajuda = new AjudaOnline(matrAluno, disciplina,
-				getTutorAjudaOnline(disciplina).getAluno().getMatricula());
+		AjudaOnline ajuda = new AjudaOnline(matrAluno, disciplina, getTutorAjudaOnline(disciplina).getAluno().getMatricula());
 		ajudas.add(ajuda);
 		return ajudas.size();
 
@@ -458,10 +423,7 @@ public class TutorController {
 	 * @return
 	 */
 	private double calculaValores(double taxa, int totalCentavos) {
-				
 		double totalSistema = Math.floor(((100 - ((taxa*100)))/100) * totalCentavos);
-		System.out.println(((100 - ((taxa*100)))/100) * 100);
-		
 		return (totalCentavos - totalSistema);
 
 	}
@@ -509,20 +471,15 @@ public class TutorController {
 	}
 	
 	public void configurarOrdem(String atributo) {
-		aux = 0;
-		tutorSort.clear();
-		tutorSort.addAll(this.tutores.values());
-		if (atributo.equals("EMAIL")) {
-			Collections.sort(tutorSort, new ComparaEmailTutor());
+		if(atributo.equals("EMAIL")) {
+			this.comparador = new ComparaEmailTutor();
 		}
-		if (atributo.equals("NOME")) {
-			Collections.sort(tutorSort, new comparaNomeTutor());
+		if(atributo.equals("NOME")) {
+			this.comparador = new ComparaNomeTutor();
 		}
-		if (atributo.equals("MATRICULA")) {
-			Collections.sort(tutorSort, new ComparaMatriculaTutor());
+		if(atributo.equals("MATRICULA")) {
+			this.comparador = null;
 		}
-		
-		aux += 1;
 	}
 	
 }

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Tutor {
+public class Tutor implements Comparable<Tutor>{
 	/**
 	 * Objeto Aluno ao qual o Tutor se refere.
 	 */
@@ -257,8 +257,12 @@ public class Tutor {
 		return this.notaAvaliacaoTutor;
 	}
 
+	/**
+	 * Método compareTo que faz a comparação padrão de Tutor por matrícula.
+	 */
+	@Override
 	public int compareTo(Tutor tutorDois) {
-		return this.getAluno().getNome().compareTo(tutorDois.getAluno().getNome());
+		return this.getAluno().compareTo(tutorDois.getAluno());
 	}
 
 }
