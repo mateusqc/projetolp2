@@ -1,5 +1,7 @@
 package qma;
 
+import java.io.Serializable;
+
 /**
  * Classe que representa um Aluno no sistema QUEM ME AJUDA.
  * 
@@ -10,8 +12,11 @@ package qma;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Aluno implements Comparable<Aluno>{
-
+public class Aluno implements Comparable<Aluno>, Serializable{
+	/**
+	 * Indicador de versão da Classe Aluno, solicitado pela interface {@link Serializable}.
+	 */
+	private static final long serialVersionUID = 2867494879508581118L;
 	/**
 	 * Matrícula do Aluno.
 	 */

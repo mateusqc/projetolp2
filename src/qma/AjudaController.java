@@ -1,7 +1,14 @@
 package qma;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ajuda.Ajuda;
 import ajuda.AjudaOnline;
@@ -96,8 +103,7 @@ public class AjudaController {
 			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : id nao encontrado ");
 		}
 		if (atributo.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
+			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : atributo nao pode ser vazio ou em branco");
 		}
 
 		return this.ajudas.get(idAjuda - 1).getInfoAjuda(atributo);
@@ -119,5 +125,28 @@ public class AjudaController {
 	
 	public boolean foiAvaliado(int idAjuda) {
 		return this.ajudas.get(idAjuda - 1).foiAvaliado();
+	}
+	
+	public void salvar() throws IOException {
+		FileOutputStream fos;
+		ObjectOutputStream oos;
+		fos = new FileOutputStream(new File("ajudas.dat"));
+		oos = new ObjectOutputStream(fos);
+		oos.writeObject(this.ajudas);
+		oos.close();
+
+	}
+	
+	public void carregar() throws IOException, ClassNotFoundException {
+		FileInputStream fis;
+		ObjectInputStream ois;
+		fis = new FileInputStream(new File("ajudas.dat"));
+		ois = new ObjectInputStream(fis);
+		this.ajudas = (List<Ajuda>) ois.readObject();
+		ois.close();
+	}
+	
+	public void limpar() {
+		this.ajudas.clear();
 	}
 }

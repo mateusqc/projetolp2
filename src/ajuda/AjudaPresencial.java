@@ -14,6 +14,10 @@ package ajuda;
 public class AjudaPresencial extends Ajuda {
 
 	/**
+	 * Indicador de versão da Classe AjudaPresencial, solicitado pela interface {@link Serializable}.
+	 */
+	private static final long serialVersionUID = 1580196353557588797L;
+	/**
 	 * Horário da Ajuda.
 	 */
 	private String horario;

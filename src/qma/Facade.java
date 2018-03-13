@@ -1,5 +1,7 @@
 package qma;
 
+import java.io.IOException;
+
 import easyaccept.EasyAccept;
 
 /**
@@ -14,13 +16,13 @@ import easyaccept.EasyAccept;
  *
  */
 public class Facade {
-	private SistemaController controller;
+	private SistemaController sistemaController;
 	
 	/**
 	 * Construtor da Classe Facade que inicializa os controllers.
 	 */
 	public Facade() {
-		this.controller = new SistemaController();
+		this.sistemaController = new SistemaController();
 	}
 	
 	/**
@@ -43,7 +45,7 @@ public class Facade {
 	 * @param email e-mail do aluno
 	 */
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		this.controller.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
+		this.sistemaController.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
 	
 	/**
@@ -53,7 +55,7 @@ public class Facade {
 	 * @return String com as informações do aluno com a respectiva matrícula
 	 */
 	public String recuperaAluno(String matricula) {
-		return this.controller.recuperaAluno(matricula);
+		return this.sistemaController.recuperaAluno(matricula);
 	}
 	
 	/**
@@ -62,7 +64,7 @@ public class Facade {
 	 * @return String com a listagem dos alunos
 	 */
 	public String listarAlunos() {
-		return this.controller.listarAlunos();
+		return this.sistemaController.listarAlunos();
 	}
 	
 	/**
@@ -73,7 +75,7 @@ public class Facade {
 	 * @return String com a informação do atributo informado
 	 */
 	public String getInfoAluno(String matricula, String atributo) {
-		return this.controller.getInfoAluno(matricula, atributo);
+		return this.sistemaController.getInfoAluno(matricula, atributo);
 	}
 	
 	/**
@@ -84,7 +86,7 @@ public class Facade {
 	 * @param proficiencia proficiência do aluno na disciplina
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		this.controller.tornarTutor(matricula, disciplina, proficiencia);
+		this.sistemaController.tornarTutor(matricula, disciplina, proficiencia);
 	}
 	
 	/**
@@ -94,7 +96,7 @@ public class Facade {
 	 * @return String com as informações do tutor
 	 */
 	public String recuperaTutor(String matricula) {
-		return this.controller.recuperaTutor(matricula);
+		return this.sistemaController.recuperaTutor(matricula);
 	}
 	
 	/**
@@ -103,7 +105,7 @@ public class Facade {
 	 * @return
 	 */
 	public String listarTutores() {
-		return this.controller.listarTutores();
+		return this.sistemaController.listarTutores();
 	}
 	
 	/**
@@ -114,7 +116,7 @@ public class Facade {
 	 * @param dia dia disponível para o tutor
 	 */
 	public void cadastrarHorario(String email, String horario, String dia) {
-		this.controller.cadastrarHorario(email, horario, dia);
+		this.sistemaController.cadastrarHorario(email, horario, dia);
 	}
 	
 	/**
@@ -124,7 +126,7 @@ public class Facade {
 	 * @param local local disponível para o tutor
 	 */
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		this.controller.cadastrarLocalDeAtendimento(email, local);
+		this.sistemaController.cadastrarLocalDeAtendimento(email, local);
 	}
 	
 	/**
@@ -136,7 +138,7 @@ public class Facade {
 	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
 	public boolean consultaHorario(String email, String horario, String dia) {
-		return this.controller.consultaHorario(email, horario, dia);
+		return this.sistemaController.consultaHorario(email, horario, dia);
 	}
 	
 	/**
@@ -147,7 +149,7 @@ public class Facade {
 	 * @return Boolean representando a disponibilidade, true, caso esteja disponível, ou false, caso não
 	 */
 	public boolean consultaLocal(String email, String local) {
-		return this.controller.consultaLocal(email, local);
+		return this.sistemaController.consultaLocal(email, local);
 	}
 
 	/**
@@ -162,7 +164,7 @@ public class Facade {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
-		return this.controller.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
+		return this.sistemaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
 	}
 
 	/**
@@ -174,7 +176,7 @@ public class Facade {
 	 * @return Inteiro que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
-		return this.controller.pedirAjudaOnline(matrAluno, disciplina);
+		return this.sistemaController.pedirAjudaOnline(matrAluno, disciplina);
 	}
 
 	/**
@@ -185,7 +187,7 @@ public class Facade {
 	 * @return String com as informações do tutor e da ajuda
 	 */
 	public String pegarTutor(int idAjuda) {
-		return this.controller.pegarTutor(idAjuda);
+		return this.sistemaController.pegarTutor(idAjuda);
 
 	}
 
@@ -198,7 +200,7 @@ public class Facade {
 	 * @return String com o atributo desejado
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
-		return this.controller.getInfoAjuda(idAjuda, atributo);
+		return this.sistemaController.getInfoAjuda(idAjuda, atributo);
 	}
 
 	/**
@@ -210,7 +212,7 @@ public class Facade {
 	 * @return String com a nova média do tutor.
 	 */
 	public String avaliarTutor(int idAjuda, int nota) {
-		return this.controller.avaliarTutor(idAjuda, nota);
+		return this.sistemaController.avaliarTutor(idAjuda, nota);
 	}
 
 	/**
@@ -221,7 +223,7 @@ public class Facade {
 	 * @return String com a nota de avaliação do tutor
 	 */
 	public String pegarNota(String matriculaTutor) {
-		return this.controller.pegarNota(matriculaTutor);
+		return this.sistemaController.pegarNota(matriculaTutor);
 	}
 
 	/**
@@ -232,7 +234,7 @@ public class Facade {
 	 * @return String com o nível do tutor
 	 */
 	public String pegarNivel(String matriculaTutor) {
-		return this.controller.pegarNivel(matriculaTutor);
+		return this.sistemaController.pegarNivel(matriculaTutor);
 	}
 	
 	/**
@@ -242,7 +244,7 @@ public class Facade {
 	 */
 
 	public void doar(String matriculaTutor, int totalCentavos) {
-		this.controller.doar(matriculaTutor, totalCentavos);
+		this.sistemaController.doar(matriculaTutor, totalCentavos);
 	}
 	
 	/**
@@ -252,7 +254,7 @@ public class Facade {
 	 */
 	
 	public int totalDinheiroTutor(String emailTutor) {
-		return this.controller.totalDinheiroTutor(emailTutor);
+		return this.sistemaController.totalDinheiroTutor(emailTutor);
 	}
 	
 	/**
@@ -260,13 +262,25 @@ public class Facade {
 	 * @return
 	 */
 	public int totalDinheiroSistema() {
-		return this.controller.totalDinheiroSistema();
+		return this.sistemaController.totalDinheiroSistema();
 	}
 	
 	
 	public void configurarOrdem(String atributo) {
-		this.controller.configurarOrdem(atributo);
-		this.controller.configurarOrdem(atributo);
+		this.sistemaController.configurarOrdem(atributo);
+		this.sistemaController.configurarOrdem(atributo);
+	}
+	
+	public void salvar() throws IOException {
+		this.sistemaController.salvar();
+	}
+	
+	public void carregar() throws ClassNotFoundException, IOException {
+		this.sistemaController.carregar();
+	}
+	
+	public void limpar() {
+		this.sistemaController.limpar();
 	}
 	
 }

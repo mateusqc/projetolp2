@@ -1,5 +1,13 @@
 package qma;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Map;
+
 /**
  * Classe Controller para gerenciar os Controllers do QUEM ME AJUDA.
  * 
@@ -288,6 +296,38 @@ public class SistemaController {
 	public void configurarOrdem(String atributo) {
 		this.alunoController.configurarOrdem(atributo);
 		this.tutorController.configurarOrdem(atributo);
+	}
+	
+	public void salvar() throws IOException {
+		FileOutputStream fos;
+		ObjectOutputStream oos;
+		fos = new FileOutputStream(new File("caixa.dat"));
+		oos = new ObjectOutputStream(fos);
+		oos.writeObject(this.caixaSistema);
+		oos.close();
+		this.ajudaController.salvar();
+		this.alunoController.salvar();
+		this.tutorController.salvar();
+
+	}
+	
+	public void carregar() throws IOException, ClassNotFoundException {
+		FileInputStream fis;
+		ObjectInputStream ois;
+		fis = new FileInputStream(new File("caixa.dat"));
+		ois = new ObjectInputStream(fis);
+		this.caixaSistema = (double) ois.readObject();
+		ois.close();
+		this.ajudaController.carregar();
+		this.alunoController.carregar();
+		this.tutorController.carregar();
+	}
+	
+	public void limpar() {
+		this.caixaSistema = 0;
+		this.ajudaController.limpar();
+		this.alunoController.limpar();
+		this.tutorController.limpar();
 	}
 	
 }

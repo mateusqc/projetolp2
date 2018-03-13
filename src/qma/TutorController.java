@@ -1,5 +1,11 @@
 package qma;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -380,6 +386,32 @@ public class TutorController {
 		if(atributo.equals("MATRICULA")) {
 			this.comparador = null;
 		}
+	}
+	
+	public void salvar() throws IOException {
+		FileOutputStream fos;
+		ObjectOutputStream oos;
+		fos = new FileOutputStream(new File("tutores.dat"));
+		oos = new ObjectOutputStream(fos);
+		oos.writeObject(this.tutores);
+		oos.writeObject(this.emailTutores);
+		oos.close();
+
+	}
+	
+	public void carregar() throws IOException, ClassNotFoundException {
+		FileInputStream fis;
+		ObjectInputStream ois;
+		fis = new FileInputStream(new File("tutores.dat"));
+		ois = new ObjectInputStream(fis);
+		this.tutores = (Map<String, Tutor>) ois.readObject();
+		this.emailTutores = (Map<String, String>) ois.readObject();
+		ois.close();
+	}
+	
+	public void limpar() {
+		this.tutores.clear();
+		this.emailTutores.clear();
 	}
 	
 }

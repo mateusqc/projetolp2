@@ -1,5 +1,6 @@
 package qma;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,11 @@ import java.util.Map;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public class Tutor implements Comparable<Tutor>{
+public class Tutor implements Comparable<Tutor>, Serializable{
+	/**
+	 * Indicador de versão da Classe Tutor, solicitado pela interface {@link Serializable}.
+	 */
+	private static final long serialVersionUID = -6773287636886291533L;
 	/**
 	 * Objeto Aluno ao qual o Tutor se refere.
 	 */

@@ -1,5 +1,7 @@
 package ajuda;
 
+import java.io.Serializable;
+
 /**
  * Classe abstrata que representa uma Ajuda no sistema QUEM ME AJUDA.
  * 
@@ -10,7 +12,11 @@ package ajuda;
  * @author Joeberth Augusto Cordeiro de Souza
  * @author Vitor Alves Correia Lima de Aquino
  */
-public abstract class Ajuda {
+public abstract class Ajuda implements Serializable{
+	/**
+	 * Indicador de versão da Classe Ajuda, solicitado pela interface {@link Serializable}.
+	 */
+	private static final long serialVersionUID = -1187824180823481381L;
 	/**
 	 * Matrícula do Aluno solicitante da ajuda.
 	 */

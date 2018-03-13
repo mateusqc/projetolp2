@@ -14,6 +14,11 @@ package ajuda;
 public class AjudaOnline extends Ajuda {
 	
 	/**
+	 * Indicador de versão da Classe AjudaOnline, solicitado pela interface {@link Serializable}.
+	 */
+	private static final long serialVersionUID = 4212822751754199267L;
+
+	/**
 	 * Construtor de uma Ajuda Online, utiliza o construtor da classe abstrata pai.
 	 * @param matriculaAluno
 	 * @param disciplina
