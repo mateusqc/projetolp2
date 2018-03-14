@@ -186,7 +186,7 @@ public class Aluno implements Comparable<Aluno>, Serializable{
 
 	/**
 	 * Método que retorna o ID de cadastro do Aluno, ou seja, a ordem em que foi cadastrado no sistema.
-	 * @return Inteiro que representa a ordem de cadastro do Aluno (ID)
+	 * @return Int que representa a ordem de cadastro do Aluno (ID)
 	 */
 	public int getIdCadastro() {
 		return this.idCadastro;

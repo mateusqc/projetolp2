@@ -145,6 +145,10 @@ public class AlunoController {
 		
 	}
 	
+	/**
+	 * Método que configura a ordem de listagem dos alunos, por ordem de email, nome ou matrícula.
+	 * @param atributo atributo que indica qual tipo de ordem deve ser seguida.
+	 */
 	public void configurarOrdem(String atributo) {
 		if(atributo.equals("EMAIL")) {
 			this.comparador = new ComparaEmail();
@@ -169,6 +173,9 @@ public class AlunoController {
 		return this.alunos.get(matricula);
 	}
 	
+	/**
+	 * Método que salva em arquivo os alunos cadastradas até o momento.
+	 */
 	public void salvar() throws IOException {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
@@ -179,6 +186,9 @@ public class AlunoController {
 
 	}
 	
+	/**
+	 * Método que carrega os alunos salvos em um arquivo para o programa.
+	 */
 	public void carregar() throws IOException, ClassNotFoundException {
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -188,6 +198,9 @@ public class AlunoController {
 		ois.close();
 	}
 	
+	/**
+	 * Método que limpa os dados existentes dos alunos até então cadastrados.
+	 */
 	public void limpar() {
 		this.alunos.clear();
 	}

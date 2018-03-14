@@ -109,6 +109,12 @@ public class AjudaController {
 		return this.ajudas.get(idAjuda - 1).getInfoAjuda(atributo);
 	}
 	
+	/**
+	 * Método que avalia uma ajuda.
+	 * 
+	 * @param idAjuda o identificador da ajuda de interesse.
+	 * @return String com a matrícula do tutor responsável pela ajuda avaliada.
+	 */
 	public String avaliaAjuda(int idAjuda) {
 		if (idAjuda < 0) {
 			throw new IllegalArgumentException("Erro na avaliacao de tutor: id nao pode menor que zero ");
@@ -123,10 +129,19 @@ public class AjudaController {
 		return this.ajudas.get(idAjuda - 1).getMatriculaTutor();
 	}
 	
+	/**
+	 * Método que recupera a informação de uma ajuda já ter sido avaliada ou não.
+	 * 
+	 * @param idAjuda o identificador da ajuda de interesse.
+	 * @return Boolean indicando se a ajuda já foi avaliada ou não.
+	 */
 	public boolean foiAvaliado(int idAjuda) {
 		return this.ajudas.get(idAjuda - 1).foiAvaliado();
 	}
 	
+	/**
+	 * Método que salva em arquivo as ajudas cadastradas até o momento.
+	 */
 	public void salvar() throws IOException {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
@@ -137,6 +152,9 @@ public class AjudaController {
 
 	}
 	
+	/**
+	 * Método que carrega as ajudas salvas em um arquivo para o programa.
+	 */
 	public void carregar() throws IOException, ClassNotFoundException {
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -146,6 +164,9 @@ public class AjudaController {
 		ois.close();
 	}
 	
+	/**
+	 * Método que limpa os dados existentes das ajudas até então cadastradas.
+	 */
 	public void limpar() {
 		this.ajudas.clear();
 	}

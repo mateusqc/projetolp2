@@ -106,9 +106,9 @@ public class TutorTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosPositivo() {
-		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
+		alunoDois = new Aluno("Jose", "2000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
-		assert(tutorUm.compareTo(tutorDois) > 0);
+		assert(tutorUm.compareTo(tutorDois) == -1);
 		
 	}
 	
@@ -118,9 +118,9 @@ public class TutorTest {
 	 */
 	@Test
 	public void testCompareToDeDoisAlunosNegativo() {
-		alunoDois = new Aluno("Jose", "1000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
+		alunoDois = new Aluno("Jose", "2000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
-		assert(tutorDois.compareTo(tutorUm) < 0);
+		assert(tutorDois.compareTo(tutorUm) == 1);
 	}
 	
 	/**

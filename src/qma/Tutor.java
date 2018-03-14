@@ -105,9 +105,14 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 		this.locais.add(local);
 	}
 
+	/**
+	 * Método que retorna o objeto do aluno que é tutor.
+	 * @return Aluno o aluno que é o tutor. 
+	 */
 	public Aluno getAluno() {
 		return aluno;
 	}
+	
 
 	/**
 	 * Método que verificia a disponibilidade de atendimento do tutor no horário e dia especificado.
@@ -213,7 +218,7 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 	 * Método que recupera a nota de proficiência do tutor em determinada disciplina
 	 * passada como parâmetro.
 	 * @param disciplina disciplina de interesse da nota de proficiencia do tutor.
-	 * @return Inteiro com a proficiência do tutor na disciplina
+	 * @return Int com a proficiência do tutor na disciplina
 	 */
 	public int getPontuacao(String disciplina) {
 		return disciplinas.get(disciplina);
@@ -222,6 +227,7 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 	/**
 	 * Método que avalia um tutor por uma ajuda que ele realizou.
 	 * @param nota nota de avaliação do tutor pela ajuda.
+	 * @return String com a nota média de avaliação do tutor.
 	 */
 	public String avaliarTutor(int nota) {
 		this.notaAvaliacaoTutor = ((this.notaAvaliacaoTutor * 5) + nota) / 6;
@@ -230,6 +236,7 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 
 	/**
 	 * Método que avalia o nível do tutor, de acordo com sua nota de avaliação.
+	 * @return String o nível do tutor, de acordo com sua nota de avaliação.
 	 */
 	public String pegarNivel() {
 		if (notaAvaliacaoTutor > 4.5) {
@@ -249,14 +256,14 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 	}
 	/**
 	 * Método que retorna o total de dinheiro pertencente a um tutor
-	 * @return
+	 * @return Double o total de dinheiro do tutor.
 	 */
 	public double totalDinheiroTutor() {
 		return  this.dinheiro;
 	}
 	/**
 	 * Método que retorna a nota de avaliacao de um tutor
-	 * @return
+	 * @return Double a nota de avaliação do tutor.
 	 */
 	public double getNotaAvaliacao() {
 		return this.notaAvaliacaoTutor;
@@ -267,7 +274,7 @@ public class Tutor implements Comparable<Tutor>, Serializable{
 	 */
 	@Override
 	public int compareTo(Tutor tutorDois) {
-		return this.getAluno().compareTo(tutorDois.getAluno());
+		return this.getAluno().getMatricula().compareTo(tutorDois.getAluno().getMatricula());
 	}
 
 }
