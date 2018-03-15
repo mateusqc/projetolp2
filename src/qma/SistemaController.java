@@ -182,7 +182,7 @@ public class SistemaController {
 	 * @param horario horário solicitado
 	 * @param dia dia solicitado
 	 * @param localInteresse local solicitado
-	 * @return Inteiro que representa o ID da ajuda
+	 * @return Int que representa o ID da ajuda
 	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
 		return this.ajudaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse, this.tutorController.getTutorDisponivel(disciplina, horario, dia, localInteresse));
@@ -194,7 +194,7 @@ public class SistemaController {
 	 * 
 	 * @param matrAluno matrícula do aluno solicitante
 	 * @param disciplina disciplina da ajuda
-	 * @return Inteiro que representa o ID da ajuda
+	 * @return Int que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		return this.ajudaController.pedirAjudaOnline(matrAluno, disciplina, this.tutorController.getTutorDisponivel(disciplina));
@@ -277,7 +277,7 @@ public class SistemaController {
 	/**
 	 * Método que retorna o inteiro correspondente ao total de dinheiro de um tutor passado como parametro.
 	 * @param emailTutor
-	 * @return
+	 * @return Int o total de dinheiro do tutor.
 	 */
 	
 	public int totalDinheiroTutor(String emailTutor) {
@@ -286,18 +286,23 @@ public class SistemaController {
 	
 	/**
 	 * Método que retorna o total de dinheiro disponivel no caixa do sistema.
-	 * @return
+	 * @return Int o total de dinheiro do sistema.
 	 */
 	public int totalDinheiroSistema() {
 		return (int) this.caixaSistema;
 	}
 	
-	
+	/**
+	 * Método que configura o critério de ordenação dos alunos e dos tutores cadastrados no sistema.
+	 */
 	public void configurarOrdem(String atributo) {
 		this.alunoController.configurarOrdem(atributo);
 		this.tutorController.configurarOrdem(atributo);
 	}
 	
+	/**
+	 * Método que salva em um arquivo os dados do sistema relativos ao caixa do sistema, às ajudas, aos alunos e aos tutores.
+	 */
 	public void salvar() throws IOException {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
@@ -311,6 +316,9 @@ public class SistemaController {
 
 	}
 	
+	/**
+	 * Método que carrega de um arquivo os dados acerca do caixa do sistema, dos alunos, tutores e das ajudas.
+	 */
 	public void carregar() throws IOException, ClassNotFoundException {
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -323,6 +331,9 @@ public class SistemaController {
 		this.tutorController.carregar();
 	}
 	
+	/**
+	 * Método que limpa do sistema os dados sobre o caixa do sistema, as ajudas, os alunos e tutores.
+	 */
 	public void limpar() {
 		this.caixaSistema = 0;
 		this.ajudaController.limpar();

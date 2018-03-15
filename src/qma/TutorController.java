@@ -206,7 +206,7 @@ public class TutorController {
 	 * @param horario horário desejado para a ajuda
 	 * @param dia dia desejado para a ajuda
 	 * @param localInteresse local de interesse para a ajuda
-	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
+	 * @return String com a matricula do tutor adequado ou null, caso não encontre
 	 */
 	public String getTutorDisponivel(String disciplina, String horario, String dia, String localInteresse) {
 		if (disciplina.trim().equals("")) {
@@ -246,7 +246,7 @@ public class TutorController {
 	 * Método que seleciona o tutor adequado para a ajuda solicitada (Online). A ordem de prioridade dentre os tutores disponíveis é por proficiência,
 	 * pontuação e por último ordem de cadastro. 
 	 * @param disciplina disciplina da ajuda solicitada
-	 * @return Objeto Tutor com o tutor adequado ou null, caso não encontre
+	 * @return String com a matrícula do tutor adequado ou null, caso não encontre
 	 */
 	public String getTutorDisponivel(String disciplina) {
 		if (disciplina.trim().equals("")) {
@@ -278,6 +278,7 @@ public class TutorController {
 	 * Método que avalia um tutor por determinada ajuda realizada.
 	 * 
 	 * @param nota nota de avaliação do tutor por sua ajuda.
+	 * @return String com a nota do tutor após a avaliação realizada.
 	 */
 	public String avaliarTutor(String matrTutor, int nota) {
 		if (nota < 0) {
@@ -293,6 +294,7 @@ public class TutorController {
 	 * Método que retorna a nota de avaliação de um tutor.
 	 * 
 	 * @param matriculaTutor matrícula do tutor de interesse.
+	 * @return String com a nota do tutor de interesse.
 	 */
 	public String pegarNota(String matriculaTutor) {
 		return this.tutores.get(matriculaTutor).pegarNota();
@@ -302,6 +304,7 @@ public class TutorController {
 	 * Método que retorna o nível de determinado tutor, de acordo com sua nota de avaliação.
 	 * 
 	 * @param matriculaTutor matrícula do tutor de interesse.
+	 * @return String com o nível do tutor de interesse.
 	 */
 	public String pegarNivel(String matriculaTutor) {
 		return this.tutores.get(matriculaTutor).pegarNivel();
@@ -344,7 +347,7 @@ public class TutorController {
 	/**
 	 * Método que calcula a taxa a ser usada para definir os valores recebidos pelo tutor e pelo sistema.
 	 * @param matriculaTutor matrícula do tutor que irá receber a doação
-	 * @return
+	 * @return Double com a taxa que será usada para definir os valores recebidos pelo tutor e pelo sistema.
 	 */
 	private double calculaTaxa(String matriculaTutor) {
 		double taxa = 0;
@@ -363,7 +366,7 @@ public class TutorController {
 	/**
 	 * Método que retorna o inteiro correspondente ao total de dinheiro de um tutor.
 	 * @param emailTutor
-	 * @return
+	 * @return Int com o total de dinheiro de um tutor. 
 	 */
 	public int totalDinheiroTutor(String emailTutor) { 
 		if (emailTutor.trim().equals("") || emailTutor == null) {
@@ -376,6 +379,9 @@ public class TutorController {
 		return (int) this.tutores.get(this.emailTutores.get(emailTutor)).totalDinheiroTutor();     
 	}
 	
+	/**
+	 * Método que configura a ordem de listagem dos tutores.
+	 */
 	public void configurarOrdem(String atributo) {
 		if(atributo.equals("EMAIL")) {
 			this.comparador = new ComparaEmailTutor();
@@ -388,6 +394,9 @@ public class TutorController {
 		}
 	}
 	
+	/**
+	 * Método que salva em arquivo os dados dos tutores cadastrados até o momento.
+	 */
 	public void salvar() throws IOException {
 		FileOutputStream fos;
 		ObjectOutputStream oos;
@@ -399,6 +408,9 @@ public class TutorController {
 
 	}
 	
+	/**
+	 * Método que carrega os dados sobre tutores salvos em um arquivo.
+	 */
 	public void carregar() throws IOException, ClassNotFoundException {
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -409,6 +421,9 @@ public class TutorController {
 		ois.close();
 	}
 	
+	/**
+	 * Método que limpa os dados cadastrados dos tutores.
+	 */
 	public void limpar() {
 		this.tutores.clear();
 		this.emailTutores.clear();

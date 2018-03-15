@@ -109,7 +109,7 @@ public class AlunoTest {
 	@Test
 	public void testCompareToDeDoisAlunosPositivo() {
 		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
-		assert(aluno.compareTo(alunoDois) > 0);
+		assert(aluno.compareTo(alunoDois) < 0);
 		
 	}
 	
@@ -120,7 +120,7 @@ public class AlunoTest {
 	@Test
 	public void testCompareToDeDoisAlunosNegativo() {
 		alunoDois = new Aluno("Lucas", "1000", 4000, "", "lucas.brasil@ccc.ufcg.edu.br", 0);
-		assert(alunoDois.compareTo(aluno) < 0);
+		assert(alunoDois.compareTo(aluno) > 0);
 	}
 	
 	/**

@@ -102,7 +102,7 @@ public class Facade {
 	/**
 	 * Método que retorna uma listagem dos Tutores cadastrados no sistema. Utiliza o método {@link TutorController#listarTutores()} da classe
 	 * {@link TutorController}.
-	 * @return
+	 * @return String com a listagem de todos os tutores cadastrados no sistema.
 	 */
 	public String listarTutores() {
 		return this.sistemaController.listarTutores();
@@ -161,7 +161,7 @@ public class Facade {
 	 * @param horario horário solicitado
 	 * @param dia dia solicitado
 	 * @param localInteresse local solicitado
-	 * @return Inteiro que representa o ID da ajuda
+	 * @return Int que representa o ID da ajuda
 	 */
 	public int pedirAjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
 		return this.sistemaController.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
@@ -173,7 +173,7 @@ public class Facade {
 	 * 
 	 * @param matrAluno matrícula do aluno solicitante
 	 * @param disciplina disciplina da ajuda
-	 * @return Inteiro que representa o ID da ajuda
+	 * @return Int que representa o ID da ajuda
 	 */
 	public int pedirAjudaOnline(String matrAluno, String disciplina) {
 		return this.sistemaController.pedirAjudaOnline(matrAluno, disciplina);
@@ -250,7 +250,7 @@ public class Facade {
 	/**
 	 * Método que retorna o inteiro correspondente ao total de dinheiro de um tutor passado como parametro.
 	 * @param emailTutor
-	 * @return
+	 * @return Int com o total de dinheiro do tutor.
 	 */
 	
 	public int totalDinheiroTutor(String emailTutor) {
@@ -259,26 +259,37 @@ public class Facade {
 	
 	/**
 	 * Método que retorna o total de dinheiro disponivel no caixa do sistema.
-	 * @return
+	 * @return Int com o total de dinheiro do sistema.
 	 */
 	public int totalDinheiroSistema() {
 		return this.sistemaController.totalDinheiroSistema();
 	}
 	
-	
+	/**
+	 *Método que configura o critério de ordenação do sistema.
+	 */
 	public void configurarOrdem(String atributo) {
 		this.sistemaController.configurarOrdem(atributo);
 		this.sistemaController.configurarOrdem(atributo);
 	}
 	
+	/**
+	 * Método que salva os dados do sistema em arquivo.
+	 */
 	public void salvar() throws IOException {
 		this.sistemaController.salvar();
 	}
 	
+	/**
+	 * Método que carrega para o sistema os dados salvos em um arquivo.
+	 */
 	public void carregar() throws ClassNotFoundException, IOException {
 		this.sistemaController.carregar();
 	}
 	
+	/**
+	 * Método que limpa os dados cadastrados no sistema até o momento.
+	 */
 	public void limpar() {
 		this.sistemaController.limpar();
 	}
