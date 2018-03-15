@@ -105,7 +105,7 @@ public class TutorTest {
 	 * o retorno do método será positivo.
 	 */
 	@Test
-	public void testCompareToDeDoisAlunosPositivo() {
+	public void testCompareToDeDoisAlunosNegativo() {
 		alunoDois = new Aluno("Jose", "2000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
 		assert(tutorUm.compareTo(tutorDois) == -1);
@@ -117,7 +117,7 @@ public class TutorTest {
 	 * o retorno do método será negativo.
 	 */
 	@Test
-	public void testCompareToDeDoisAlunosNegativo() {
+	public void testCompareToDeDoisAlunosPositivo() {
 		alunoDois = new Aluno("Jose", "2000", 4000, "", "jose@ccc.ufcg.edu.br", 1);
 		tutorDois = new Tutor("Grafos", 5, alunoDois);
 		assert(tutorDois.compareTo(tutorUm) == 1);

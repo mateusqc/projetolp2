@@ -19,7 +19,9 @@ import qma.Aluno;
 public class ComparaEmail implements Comparator<Aluno> {
 
 	/**
-	 * Método compare que irá comparar o E-mail de dois Alunos retornando menor que zero, caso o primeiro 
+	 * Método compare que irá comparar o E-mail de dois Alunos retornando menor que zero, caso o primeiro venha depois na ordem lexicográfica,
+	 * maior que zero caso o primeiro venha antes na ordem lexicográfica e zero caso ambos os e-mails segam iguais. Em caso de mesma ordem lexicográfica,
+	 * o desempate ocorre pela ordenação natural dos alunos.
 	 */
 	public int compare(Aluno a, Aluno b) {
 		int valor = a.getEmail().compareTo(b.getEmail());
